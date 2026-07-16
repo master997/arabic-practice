@@ -8,6 +8,7 @@ Open [index.html](index.html) in any browser — double-click it, or on your pho
 
 - Tap a card (or press Space) to flip · **1** = again · **2** = got it · arrow keys to move
 - **★** on a card collects it into the "Hard" deck
+- Every card shows **Egyptian pronunciation** when flipped (say it first, then check). Street-style Latin, no harakat: `3` = ع, `'` = hamza or Egyptian ق, `g` = ج. Careful: Quranic reading habits give wrong Egyptian — كتير is *keteer* not *katheer*, قهوة is *'ahwa* not *qahwa*
 - **AR → EN** button flips the direction of every card — do both directions; EN → AR (production) is the one that makes you able to *speak*
 - Your original binder pages are in [sheets/](sheets/)
 
