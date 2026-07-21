@@ -698,12 +698,20 @@ function render() {
         else if (first.length === 2) { exPr = [first[1], ...prParts.slice(1)]; prLead = first[0]; }
       }
     }
+    // question+answer cards: pr is "question pronunciation — answer pronunciation".
+    // Keep the question's half up top, move the answer's half down next to the answer
+    // instead of lumping both together, far from the answer it belongs to.
+    if (!paired && exAr.length === 1 && card.pr && card.pr.includes("—")) {
+      const dash = card.pr.indexOf("—");
+      prLead = card.pr.slice(0, dash).trim();
+      exPr = [card.pr.slice(dash + 1).trim()];
+    }
     if (listPaired) {
       html += rows(listAr, listPr, listEn);
     } else {
       if (prLead) html += '<div class="pron">' + esc(prLead) + '</div>';
       if (card.ex) {
-        html += paired
+        html += (paired || exPr)
           ? rows(exAr, exPr, exEn)
           : '<div class="example"><div class="arabic">' + esc(card.ex[0]) + '</div><div>' + esc(card.ex[1]) + '</div></div>';
       }
