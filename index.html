@@ -124,6 +124,22 @@
   .root-line .root-letters { font-size: 1.3rem; color: var(--accent); letter-spacing: 0.15em; }
   .root-line .root-also .arabic { color: var(--ink); }
   .root-line .root-gloss { font-size: 0.82rem; opacity: 0.8; }
+  .roots-view { width: 100%; text-align: left; }
+  .roots-section-label {
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--muted); margin: 20px 0 8px;
+  }
+  .root-group { padding: 10px 0; border-top: 1px dashed var(--border); }
+  .root-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+  .root-head .root-letters { font-size: 1.5rem; color: var(--accent); letter-spacing: 0.15em; }
+  .root-head .root-count {
+    font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .root-members { display: flex; flex-direction: column; gap: 5px; }
+  .rm { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .rm-ar { font-size: 1.3rem; color: var(--ink); min-width: 5.5rem; unicode-bidi: isolate; }
+  .rm-pr { font-size: 0.9rem; font-style: italic; color: var(--muted); }
+  .rm-gloss { font-size: 0.95rem; color: var(--muted); }
   .grade-row {
     width: 100%; max-width: 760px; display: flex; gap: 10px; margin-top: 14px;
   }
@@ -593,9 +609,10 @@ const DECKS = [
 
 // ============ STATE ============
 const LS_KEY = "arabicPracticeV1";
-const DAY = 86400000;
-// Leitner ladder: days until a card returns after reaching box 1..5.
-const SRS_DAYS = [1, 3, 7, 16, 35];
+const DAY = 86400000, MIN = 60000;
+// Steps a card climbs on "got it", in MINUTES. The first is a same-day 10-min
+// step so reviews come back within the session; then the day-based ladder.
+const SRS_STEPS = [10, 1 * 1440, 3 * 1440, 7 * 1440, 16 * 1440, 35 * 1440];
 let state = { deck: "greet", dir: "ar2en", theme: null, hard: {}, sched: {} };
 try { Object.assign(state, JSON.parse(localStorage.getItem(LS_KEY) || "{}")); } catch(e) {}
 if (!state.sched) state.sched = {};
@@ -610,8 +627,8 @@ function save() { localStorage.setItem(LS_KEY, JSON.stringify(state)); }
 const isDue = key => { const s = state.sched[key]; return !s || s.due <= Date.now(); };
 const isReviewDue = key => { const s = state.sched[key]; return s && s.due <= Date.now(); };
 function scheduleGot(key) {
-  const box = Math.min(((state.sched[key] && state.sched[key].box) || 0) + 1, SRS_DAYS.length);
-  state.sched[key] = { box, due: Date.now() + SRS_DAYS[box - 1] * DAY };
+  const box = Math.min(((state.sched[key] && state.sched[key].box) || 0) + 1, SRS_STEPS.length);
+  state.sched[key] = { box, due: Date.now() + SRS_STEPS[box - 1] * MIN };
 }
 function scheduleAgain(key) { state.sched[key] = { box: 0, due: Date.now() }; }
 function nextDueAmong(keys) {
@@ -639,7 +656,7 @@ function currentDeck() { return DECKS.find(d => d.id === state.deck) || DECKS[0]
 const ROOT_INDEX = (() => {
   const m = {};
   for (const d of DECKS) for (const c of d.cards) {
-    if (c.root) (m[c.root] = m[c.root] || []).push({ ar: c.ar, en: c.en });
+    if (c.root) (m[c.root] = m[c.root] || []).push({ ar: c.ar, en: c.en, pr: c.pr });
   }
   return m;
 })();
@@ -648,6 +665,7 @@ const shortGloss = en => en.split(/[—(/,]/)[0].trim();
 
 // Every card the current view could draw from, tagged with deck + stable key.
 function candidateCards() {
+  if (state.deck === "__roots") return [];
   if (state.deck === "__hard") {
     const out = [];
     DECKS.forEach(d => d.cards.forEach(c => {
@@ -712,7 +730,15 @@ function render() {
   hb.onclick = () => { state.deck = "__hard"; save(); buildOrder(false); render(); };
   bar.appendChild(hb);
 
+  const rb = document.createElement("button");
+  rb.className = "deck-chip" + (state.deck === "__roots" ? " active" : "");
+  rb.textContent = "🌱 Roots";
+  rb.onclick = () => { state.deck = "__roots"; save(); buildOrder(false); render(); };
+  bar.appendChild(rb);
+
   $("dirBtn").textContent = state.dir === "ar2en" ? "AR → EN" : "EN → AR";
+
+  if (state.deck === "__roots") { renderRoots(); return; }
 
   const card = order[idx];
   const body = $("cardBody");
@@ -814,6 +840,34 @@ function render() {
   $("gradeRow").style.visibility = flipped ? "visible" : "hidden";
 }
 
+function renderRoots() {
+  $("deckLabel").textContent = "Roots";
+  $("starBtn").style.display = "none";
+  $("gradeRow").style.visibility = "hidden";
+  const entries = Object.entries(ROOT_INDEX);
+  const families = entries.filter(([, v]) => v.length > 1).sort((a, b) => b[1].length - a[1].length);
+  const singles = entries.filter(([, v]) => v.length === 1).sort((a, b) => a[0].localeCompare(b[0]));
+  const words = entries.reduce((n, [, v]) => n + v.length, 0);
+  $("counter").textContent = families.length + " families · " + words + " words";
+  const shortPr = pr => pr ? esc(pr.split(/[—·]/)[0].trim()) : "";
+  const member = w =>
+    '<div class="rm"><span class="arabic rm-ar">' + esc(w.ar) + '</span>' +
+    (w.pr ? '<span class="rm-pr">' + shortPr(w.pr) + '</span>' : '') +
+    '<span class="rm-gloss">' + esc(shortGloss(w.en)) + '</span></div>';
+  const group = ([root, ws]) =>
+    '<div class="root-group"><div class="root-head">' +
+    '<span class="root-letters arabic">' + esc(root) + '</span>' +
+    '<span class="root-count">' + ws.length + (ws.length > 1 ? " words" : " word") + '</span></div>' +
+    '<div class="root-members">' + ws.map(member).join("") + '</div></div>';
+  $("cardBody").innerHTML =
+    '<div class="roots-view">' +
+    '<div class="roots-section-label">Word families — same three letters, different jobs</div>' +
+    families.map(group).join("") +
+    '<div class="roots-section-label">Single words so far — families grow as we add vocab</div>' +
+    singles.map(group).join("") +
+    '</div>';
+}
+
 function flip() { flipped = !flipped; render(); }
 function next() { if (!order.length) return; idx = (idx + 1) % order.length; flipped = false; render(); }
 function prev() { if (!order.length) return; idx = (idx - 1 + order.length) % order.length; flipped = false; render(); }
@@ -871,7 +925,7 @@ document.addEventListener("keydown", e => {
 });
 
 applyTheme();
-if (!DECKS.some(d => d.id === state.deck) && state.deck !== "__hard" && state.deck !== "__due") state.deck = "greet";
+if (!DECKS.some(d => d.id === state.deck) && !["__hard", "__due", "__roots"].includes(state.deck)) state.deck = "greet";
 buildOrder(false);
 render();
 </script>

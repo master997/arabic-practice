@@ -7,8 +7,9 @@ Everything you need before (and after) your first lesson.
 Open [index.html](index.html) in any browser — double-click it, or on your phone AirDrop the folder and open the file. No internet needed. Progress saves automatically per device.
 
 - Tap a card (or press Space) to flip · **1** = again · **2** = got it · arrow keys to move
-- **Spaced repetition is built in.** Mark **got it** and the card comes back on a widening schedule — **1 → 3 → 7 → 16 → 35 days**. Mark **again** and it resets to the start. Every deck stays fully browsable — you can always flip through all its cards; only the **⏰ Due** queue is schedule-gated.
+- **Spaced repetition is built in.** Mark **got it** and the card comes back on a widening schedule — **10 min → 1 day → 3 → 7 → 16 → 35 days**. That first 10-minute step means cards you learn come back to you *within the same session*, then space out as they stick. Mark **again** and it resets to the start. Every deck stays fully browsable — you can always flip through all its cards; only the **⏰ Due** queue is schedule-gated.
 - **⏰ Due** is your daily driver: it gathers every card that's come back due across *all* decks, and it drains as you clear it. Open the app, clear Due, done. Any other deck is free browsing — grading still updates the schedule underneath.
+- **🌱 Roots** is a map of the language: every word grouped by its three-letter root, so you see the families (ر و ح → رايح, اروح) instead of a hundred unconnected words. Families grow as vocab is added.
 - **★** on a card collects it into the "Hard" deck
 - Every card shows **Egyptian pronunciation** when flipped (say it first, then check). Street-style Latin, no harakat: `3` = ع, `'` = hamza or Egyptian ق, `g` = ج. Careful: Quranic reading habits give wrong Egyptian — كتير is *keteer* not *katheer*, قهوة is *'ahwa* not *qahwa*
 - The back of a card also shows its **root** and other words from the same family (e.g. ر و ح → رايح, اروح). Arabic is built from three-letter roots, so seeing the family turns lone words into clusters.
