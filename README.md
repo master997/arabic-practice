@@ -7,8 +7,12 @@ Everything you need before (and after) your first lesson.
 Open [index.html](index.html) in any browser — double-click it, or on your phone AirDrop the folder and open the file. No internet needed. Progress saves automatically per device.
 
 - Tap a card (or press Space) to flip · **1** = again · **2** = got it · arrow keys to move
+- **Spaced repetition is built in.** Mark **got it** and the card comes back on a widening schedule — **1 → 3 → 7 → 16 → 35 days**. Mark **again** and it resets to the start and returns later the same session. You only ever see what you're actually due to review.
+- **⏰ Due** is your daily driver: it gathers every card that's come back due across *all* decks. Open the app, clear Due, done. Opening a specific deck is how you pull in *new* cards to learn.
 - **★** on a card collects it into the "Hard" deck
 - Every card shows **Egyptian pronunciation** when flipped (say it first, then check). Street-style Latin, no harakat: `3` = ع, `'` = hamza or Egyptian ق, `g` = ج. Careful: Quranic reading habits give wrong Egyptian — كتير is *keteer* not *katheer*, قهوة is *'ahwa* not *qahwa*
+- The back of a card also shows its **root** and other words from the same family (e.g. ر و ح → رايح, اروح). Arabic is built from three-letter roots, so seeing the family turns lone words into clusters.
+- The **Numbers** deck shows the Arabic-Indic numeral glyphs (١ ٢ ٣ …) next to each number, so you learn to read the digits too.
 - **AR → EN** button flips the direction of every card — do both directions; EN → AR (production) is the one that makes you able to *speak*
 - Your original binder pages are in [sheets/](sheets/)
 
@@ -23,6 +27,8 @@ Open [index.html](index.html) in any browser — double-click it, or on your pho
 | 5 | Sentence patterns + Top 25 verbs — say each example **aloud**, then invent one of your own per pattern |
 | 6 | Conversation islands — rehearse aloud until each flows without thinking |
 | 7 | Hard deck + Question drills, then one full pass of Classroom survival EN → AR |
+
+Each day, start by clearing **⏰ Due** (your scheduled reviews come back automatically now — no need to manually redo old decks), then learn new cards from that day's deck.
 
 Every day: say cards **out loud**, not in your head. Ten minutes aloud beats an hour of silent reading.
 

@@ -112,6 +112,18 @@
     background: var(--accent-soft); color: var(--accent); padding: 3px 10px; border-radius: 999px;
     text-transform: uppercase; letter-spacing: 0.05em;
   }
+  .root-line {
+    margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--border);
+    font-size: 0.95rem; color: var(--muted); line-height: 1.9;
+    max-width: 90%; margin-left: auto; margin-right: auto;
+  }
+  .root-line .root-label {
+    font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; opacity: 0.75;
+  }
+  .root-line .root-letters { font-size: 1.3rem; color: var(--accent); letter-spacing: 0.15em; }
+  .root-line .root-also .arabic { color: var(--ink); }
+  .root-line .root-gloss { font-size: 0.82rem; opacity: 0.8; }
   .grade-row {
     width: 100%; max-width: 760px; display: flex; gap: 10px; margin-top: 14px;
   }
@@ -388,16 +400,16 @@ const DECKS = [
   {ar:"لا", en:"no", t100:1, pr:"la' (often la'a)"},
   {ar:"مش", en:"not", t100:1, pr:"mesh", ex:["انا مش فاهم","I don't understand"]},
   {ar:"طيب", en:"okay / well then (also: kind)", t100:1, pr:"tayyeb"},
-  {ar:"خلاص", en:"done / enough / alright", t100:1, pr:"khalaas"},
+  {ar:"خلاص", en:"done / enough / alright", t100:1, pr:"khalaas", root:"خ ل ص"},
   {ar:"يعني", en:"meaning / I mean / kind of", t100:1, pr:"ya3ni"},
   {ar:"لسه", en:"still / not yet", t100:1, pr:"lessa"},
   {ar:"برضه", en:"also / anyway / still", t100:1, pr:"bardo"},
   {ar:"اوي", en:"very", t100:1, pr:"awi", ex:["ده قلم حلو اوي","That's a very nice pen"]},
   {ar:"جدا", en:"very (formal-ish)", t100:1, pr:"geddan"},
   {ar:"شوية", en:"a little", t100:1, pr:"shwayya", ex:["بتكلم عربي شوية","I speak a little Arabic"]},
-  {ar:"كتير", en:"a lot / many", t100:1, pr:"keteer"},
+  {ar:"كتير", en:"a lot / many", t100:1, pr:"keteer", root:"ك ت ر"},
   {ar:"كل", en:"every / all", t100:1, pr:"koll"},
-  {ar:"حاجة", en:"thing / something", t100:1, pr:"haaga"},
+  {ar:"حاجة", en:"thing / something", t100:1, pr:"haaga", root:"ح و ج"},
   {ar:"حد", en:"someone / anyone", t100:1, pr:"hadd"},
   {ar:"ناس", en:"people", t100:1, pr:"naas"},
   // time words
@@ -406,55 +418,55 @@ const DECKS = [
   {ar:"بكرة", en:"tomorrow", t100:1, pr:"bokra", ex:["اشوفك بكرة","See you tomorrow"]},
   {ar:"امبارح", en:"yesterday", t100:1, pr:"embaareh"},
   {ar:"بعدين", en:"later", t100:1, pr:"ba3dein"},
-  {ar:"يوم", en:"day", t100:1, pr:"yoom"},
-  {ar:"ليلة", en:"night", t100:1, pr:"leila"},
-  {ar:"ساعة", en:"hour / clock / watch (also: a while)", t100:1, pr:"saa3a"},
+  {ar:"يوم", en:"day", t100:1, pr:"yoom", root:"ي و م"},
+  {ar:"ليلة", en:"night", t100:1, pr:"leila", root:"ل ي ل"},
+  {ar:"ساعة", en:"hour / clock / watch (also: a while)", t100:1, pr:"saa3a", root:"س و ع"},
   {ar:"اسبوع", en:"week", t100:1, pr:"esboo3"},
-  {ar:"سنة", en:"year", t100:1, pr:"sana"},
-  {ar:"وقت", en:"time", t100:1, pr:"wa't"},
+  {ar:"سنة", en:"year", t100:1, pr:"sana", root:"س ن و"},
+  {ar:"وقت", en:"time", t100:1, pr:"wa't", root:"و ق ت"},
   // adjectives
   {ar:"كويس", en:"good / well", t100:1, pr:"kwayyes", ex:["انا كويس، شكرا ليك","I'm good, thank you"]},
-  {ar:"وحش", en:"bad", t100:1, pr:"wehesh"},
-  {ar:"حلو", en:"nice / sweet / pretty", t100:1, pr:"helw"},
-  {ar:"جميل", en:"beautiful", t100:1, pr:"gameel"},
-  {ar:"كبير", en:"big / old (person)", t100:1, pr:"kebeer"},
-  {ar:"صغير", en:"small / young", t100:1, pr:"soghayyar"},
-  {ar:"جديد", en:"new", t100:1, pr:"gedeed"},
-  {ar:"قديم", en:"old (thing)", t100:1, pr:"'adeem"},
-  {ar:"سهل", en:"easy", t100:1, pr:"sahl"},
-  {ar:"صعب", en:"difficult", t100:1, pr:"sa3b"},
-  {ar:"تمام", en:"perfect / fine", t100:1, pr:"tamaam", ex:["الدنيا تمام","Life is fine"]},
-  {ar:"صح", en:"correct / right", t100:1, pr:"sahh"},
-  {ar:"غلط", en:"wrong", t100:1, pr:"ghalat"},
-  {ar:"تعبان", en:"tired", t100:1, pr:"ta3baan"},
-  {ar:"مبسوط", en:"happy", t100:1, pr:"mabsoot"},
+  {ar:"وحش", en:"bad", t100:1, pr:"wehesh", root:"و ح ش"},
+  {ar:"حلو", en:"nice / sweet / pretty", t100:1, pr:"helw", root:"ح ل و"},
+  {ar:"جميل", en:"beautiful", t100:1, pr:"gameel", root:"ج م ل"},
+  {ar:"كبير", en:"big / old (person)", t100:1, pr:"kebeer", root:"ك ب ر"},
+  {ar:"صغير", en:"small / young", t100:1, pr:"soghayyar", root:"ص غ ر"},
+  {ar:"جديد", en:"new", t100:1, pr:"gedeed", root:"ج د د"},
+  {ar:"قديم", en:"old (thing)", t100:1, pr:"'adeem", root:"ق د م"},
+  {ar:"سهل", en:"easy", t100:1, pr:"sahl", root:"س ه ل"},
+  {ar:"صعب", en:"difficult", t100:1, pr:"sa3b", root:"ص ع ب"},
+  {ar:"تمام", en:"perfect / fine", t100:1, pr:"tamaam", root:"ت م م", ex:["الدنيا تمام","Life is fine"]},
+  {ar:"صح", en:"correct / right", t100:1, pr:"sahh", root:"ص ح ح"},
+  {ar:"غلط", en:"wrong", t100:1, pr:"ghalat", root:"غ ل ط"},
+  {ar:"تعبان", en:"tired", t100:1, pr:"ta3baan", root:"ت ع ب"},
+  {ar:"مبسوط", en:"happy", t100:1, pr:"mabsoot", root:"ب س ط"},
   // modals / key verbs-as-words
-  {ar:"عايز", en:"wanting (I want = ana 3ayez)", t100:1, pr:"3aayez", ex:["عايز اشوفك","I want to see you"]},
-  {ar:"عارف", en:"knowing (I know = ana 3aref)", t100:1, pr:"3aaref", ex:["مش عارف","I don't know"]},
-  {ar:"فاهم", en:"understanding", t100:1, pr:"faahem", ex:["ايوه انا فاهمك","Yes, I understand you"]},
-  {ar:"ممكن", en:"maybe / can / possible", t100:1, pr:"momken", ex:["ممكن تتكلم براحة؟","Can you speak slowly?"]},
-  {ar:"لازم", en:"must / have to", t100:1, pr:"laazem"},
-  {ar:"محتاج", en:"needing (I need)", t100:1, pr:"mehtaag", ex:["محتاج اسافر بكرة","I need to travel tomorrow"]},
-  {ar:"رايح", en:"going", t100:1, pr:"raayeh", ex:["انا رايح البيت","I'm going home"]},
-  {ar:"جاي", en:"coming / next", t100:1, pr:"gaay", ex:["الاسبوع الي جاي","next week"]},
+  {ar:"عايز", en:"wanting (I want = ana 3ayez)", t100:1, pr:"3aayez", root:"ع و ز", ex:["عايز اشوفك","I want to see you"]},
+  {ar:"عارف", en:"knowing (I know = ana 3aref)", t100:1, pr:"3aaref", root:"ع ر ف", ex:["مش عارف","I don't know"]},
+  {ar:"فاهم", en:"understanding", t100:1, pr:"faahem", root:"ف ه م", ex:["ايوه انا فاهمك","Yes, I understand you"]},
+  {ar:"ممكن", en:"maybe / can / possible", t100:1, pr:"momken", root:"م ك ن", ex:["ممكن تتكلم براحة؟","Can you speak slowly?"]},
+  {ar:"لازم", en:"must / have to", t100:1, pr:"laazem", root:"ل ز م"},
+  {ar:"محتاج", en:"needing (I need)", t100:1, pr:"mehtaag", root:"ح و ج", ex:["محتاج اسافر بكرة","I need to travel tomorrow"]},
+  {ar:"رايح", en:"going", t100:1, pr:"raayeh", root:"ر و ح", ex:["انا رايح البيت","I'm going home"]},
+  {ar:"جاي", en:"coming / next", t100:1, pr:"gaay", root:"ج ي ء", ex:["الاسبوع الي جاي","next week"]},
   // core nouns
-  {ar:"بيت", en:"house / home", t100:1, pr:"beit"},
-  {ar:"شغل", en:"work", t100:1, pr:"shoghl"},
-  {ar:"فلوس", en:"money", t100:1, pr:"feloos"},
-  {ar:"اكل", en:"food", t100:1, pr:"akl"},
+  {ar:"بيت", en:"house / home", t100:1, pr:"beit", root:"ب ي ت"},
+  {ar:"شغل", en:"work", t100:1, pr:"shoghl", root:"ش غ ل"},
+  {ar:"فلوس", en:"money", t100:1, pr:"feloos", root:"ف ل س"},
+  {ar:"اكل", en:"food", t100:1, pr:"akl", root:"أ ك ل"},
   {ar:"مية", en:"water (same spelling as مية = hundred; context decides)", t100:1, pr:"mayya (water) · meyya (hundred)"},
-  {ar:"قهوة", en:"coffee", t100:1, pr:"'ahwa"},
+  {ar:"قهوة", en:"coffee", t100:1, pr:"'ahwa", root:"ق ه و"},
   {ar:"شاي", en:"tea", t100:1, pr:"shaay"},
-  {ar:"صاحب", en:"friend (m)", t100:1, pr:"saaheb"},
+  {ar:"صاحب", en:"friend (m)", t100:1, pr:"saaheb", root:"ص ح ب"},
   {ar:"مصر", en:"Egypt", t100:1, pr:"masr"},
-  {ar:"عربي", en:"Arabic", t100:1, pr:"3arabi"},
-  {ar:"سؤال", en:"question", t100:1, pr:"so'aal"},
-  {ar:"كلمة", en:"word", t100:1, pr:"kelma"},
-  {ar:"مشكلة", en:"problem", t100:1, pr:"moshkela"},
+  {ar:"عربي", en:"Arabic", t100:1, pr:"3arabi", root:"ع ر ب"},
+  {ar:"سؤال", en:"question", t100:1, pr:"so'aal", root:"س ء ل"},
+  {ar:"كلمة", en:"word", t100:1, pr:"kelma", root:"ك ل م"},
+  {ar:"مشكلة", en:"problem", t100:1, pr:"moshkela", root:"ش ك ل"},
   {ar:"الدنيا", en:"the world / life (also used for weather: الدنيا حر = it's hot)", t100:1, pr:"ed-donya", ex:["الدنيا عاملة ايه؟","How's life?"]},
   // politeness core
-  {ar:"شكرا", en:"thank you", t100:1, pr:"shokran"},
-  {ar:"لو سمحت", en:"please / excuse me", t100:1, pr:"law samaht"},
+  {ar:"شكرا", en:"thank you", t100:1, pr:"shokran", root:"ش ك ر"},
+  {ar:"لو سمحت", en:"please / excuse me", t100:1, pr:"law samaht", root:"س م ح"},
   {ar:"معلش", en:"never mind / sorry / it's ok", t100:1, pr:"ma3lesh"},
   {ar:"ان شاء الله", en:"God willing / hopefully", t100:1, pr:"in shaa' allah"},
   {ar:"الحمد لله", en:"thank God / I'm fine", t100:1, pr:"el-hamdu lellah"},
@@ -480,31 +492,31 @@ const DECKS = [
 ]},
 
 { id:"verbs", name:"Top 25 verbs", cards:[
-  {ar:"اشوف", en:"to see — I see / will see", pr:"ashoof — bashoof · betshoof · hashoof", ex:["انا بشوف · انت بتشوف · هشوف","I see · you see · I will see"]},
-  {ar:"اروح", en:"to go — I go / will go", pr:"arooh — barooh · betrooh · harooh", ex:["انا بروح · انت بتروح · هروح","I go · you go · I will go"]},
-  {ar:"اعمل", en:"to do / make", pr:"a3mel — ba3mel · bete3mel · ha3mel", ex:["انا بعمل · انت بتعمل · هعمل","I do · you do · I will do"]},
-  {ar:"اقول", en:"to say", pr:"a'ool — ba'ool · bet'ool · ha'ool", ex:["انا بقول · انت بتقول · هقول","I say · you say · I will say"]},
-  {ar:"اكل (آكل)", en:"to eat", pr:"aakol — baakol · betaakol · haakol", ex:["انا باكل · انت بتاكل · هاكل","I eat · you eat · I will eat"]},
-  {ar:"اشرب", en:"to drink", pr:"ashrab — bashrab · beteshrab · hashrab", ex:["انا بشرب · انت بتشرب · هشرب","I drink · you drink · I will drink"]},
-  {ar:"اتكلم", en:"to speak", pr:"atkallem — batkallem · betetkallem · hatkallem", ex:["انا بتكلم · انت بتتكلم · هتكلم","I speak · you speak · I will speak"]},
-  {ar:"افهم", en:"to understand", pr:"afham — bafham · betefham · hafham", ex:["انا بفهم · انت بتفهم · هفهم","I understand · you understand · I will understand"]},
-  {ar:"اعرف", en:"to know", pr:"a3raf — ba3raf · bete3raf · ha3raf", ex:["انا بعرف · انت بتعرف · هعرف","I know · you know · I will know"]},
-  {ar:"احب", en:"to like / love", pr:"aheb — baheb · betheb · haheb", ex:["انا بحب · انت بتحب · هحب","I like · you like · I will like"]},
-  {ar:"اشتغل", en:"to work", pr:"ashtaghal — bashtaghal · beteshtaghal · hashtaghal", ex:["انا بشتغل · انت بتشتغل · هشتغل","I work · you work · I will work"]},
-  {ar:"ادرس", en:"to study", pr:"adres — badres · betedres · hadres", ex:["انا بدرس · انت بتدرس · هدرس","I study · you study · I will study"]},
-  {ar:"اسمع", en:"to hear / listen", pr:"asma3 — basma3 · betesma3 · hasma3", ex:["انا بسمع · انت بتسمع · هسمع","I hear · you hear · I will hear"]},
-  {ar:"اكتب", en:"to write", pr:"akteb — bakteb · betekteb · hakteb", ex:["انا بكتب · انت بتكتب · هكتب","I write · you write · I will write"]},
-  {ar:"اقرا", en:"to read", pr:"a'ra — ba'ra · bete'ra · ha'ra", ex:["انا بقرا · انت بتقرا · هقرا","I read · you read · I will read"]},
-  {ar:"اخلص", en:"to finish", pr:"akhallas — bakhallas · betkhallas · hakhallas", ex:["انا بخلص · انت بتخلص · هخلص","I finish · you finish · I will finish"]},
-  {ar:"اساعد", en:"to help", pr:"asaa3ed — basaa3ed · betsaa3ed · hasaa3ed", ex:["انا بساعد · انت بتساعد · هساعد","I help · you help · I will help"]},
-  {ar:"اسافر", en:"to travel", pr:"asaafer — basaafer · betsaafer · hasaafer", ex:["انا بسافر · انت بتسافر · هسافر","I travel · you travel · I will travel"]},
-  {ar:"ارجع", en:"to return", pr:"arga3 — barga3 · beterga3 · harga3", ex:["انا برجع · انت بترجع · هرجع","I return · you return · I will return"]},
-  {ar:"اجي (آجي)", en:"to come", pr:"aagi — baagi · beteegi · haagi", ex:["انا باجي · انت بتيجي · هاجي","I come · you come · I will come"]},
-  {ar:"اطلب", en:"to order / ask for", pr:"atlob — batlob · betotlob · hatlob", ex:["انا بطلب · انت بتطلب · هطلب","I order · you order · I will order"]},
-  {ar:"اوصل", en:"to arrive", pr:"awsal — bawsal · betewsal · hawsal", ex:["انا بوصل · انت بتوصل · هوصل","I arrive · you arrive · I will arrive"]},
-  {ar:"اقعد", en:"to sit / stay", pr:"a'3od — ba'3od · beto'3od · ha'3od", ex:["انا بقعد · انت بتقعد · هقعد","I sit · you sit · I will sit"]},
-  {ar:"انام", en:"to sleep", pr:"anaam — banaam · betnaam · hanaam", ex:["انا بنام · انت بتنام · هنام","I sleep · you sleep · I will sleep"]},
-  {ar:"امشي", en:"to walk / leave", pr:"amshi — bamshi · betemshi · hamshi", ex:["انا بمشي · انت بتمشي · همشي","I walk · you walk · I will walk"]},
+  {ar:"اشوف", en:"to see — I see / will see", pr:"ashoof — bashoof · betshoof · hashoof", root:"ش و ف", ex:["انا بشوف · انت بتشوف · هشوف","I see · you see · I will see"]},
+  {ar:"اروح", en:"to go — I go / will go", pr:"arooh — barooh · betrooh · harooh", root:"ر و ح", ex:["انا بروح · انت بتروح · هروح","I go · you go · I will go"]},
+  {ar:"اعمل", en:"to do / make", pr:"a3mel — ba3mel · bete3mel · ha3mel", root:"ع م ل", ex:["انا بعمل · انت بتعمل · هعمل","I do · you do · I will do"]},
+  {ar:"اقول", en:"to say", pr:"a'ool — ba'ool · bet'ool · ha'ool", root:"ق و ل", ex:["انا بقول · انت بتقول · هقول","I say · you say · I will say"]},
+  {ar:"اكل (آكل)", en:"to eat", pr:"aakol — baakol · betaakol · haakol", root:"أ ك ل", ex:["انا باكل · انت بتاكل · هاكل","I eat · you eat · I will eat"]},
+  {ar:"اشرب", en:"to drink", pr:"ashrab — bashrab · beteshrab · hashrab", root:"ش ر ب", ex:["انا بشرب · انت بتشرب · هشرب","I drink · you drink · I will drink"]},
+  {ar:"اتكلم", en:"to speak", pr:"atkallem — batkallem · betetkallem · hatkallem", root:"ك ل م", ex:["انا بتكلم · انت بتتكلم · هتكلم","I speak · you speak · I will speak"]},
+  {ar:"افهم", en:"to understand", pr:"afham — bafham · betefham · hafham", root:"ف ه م", ex:["انا بفهم · انت بتفهم · هفهم","I understand · you understand · I will understand"]},
+  {ar:"اعرف", en:"to know", pr:"a3raf — ba3raf · bete3raf · ha3raf", root:"ع ر ف", ex:["انا بعرف · انت بتعرف · هعرف","I know · you know · I will know"]},
+  {ar:"احب", en:"to like / love", pr:"aheb — baheb · betheb · haheb", root:"ح ب ب", ex:["انا بحب · انت بتحب · هحب","I like · you like · I will like"]},
+  {ar:"اشتغل", en:"to work", pr:"ashtaghal — bashtaghal · beteshtaghal · hashtaghal", root:"ش غ ل", ex:["انا بشتغل · انت بتشتغل · هشتغل","I work · you work · I will work"]},
+  {ar:"ادرس", en:"to study", pr:"adres — badres · betedres · hadres", root:"د ر س", ex:["انا بدرس · انت بتدرس · هدرس","I study · you study · I will study"]},
+  {ar:"اسمع", en:"to hear / listen", pr:"asma3 — basma3 · betesma3 · hasma3", root:"س م ع", ex:["انا بسمع · انت بتسمع · هسمع","I hear · you hear · I will hear"]},
+  {ar:"اكتب", en:"to write", pr:"akteb — bakteb · betekteb · hakteb", root:"ك ت ب", ex:["انا بكتب · انت بتكتب · هكتب","I write · you write · I will write"]},
+  {ar:"اقرا", en:"to read", pr:"a'ra — ba'ra · bete'ra · ha'ra", root:"ق ر ء", ex:["انا بقرا · انت بتقرا · هقرا","I read · you read · I will read"]},
+  {ar:"اخلص", en:"to finish", pr:"akhallas — bakhallas · betkhallas · hakhallas", root:"خ ل ص", ex:["انا بخلص · انت بتخلص · هخلص","I finish · you finish · I will finish"]},
+  {ar:"اساعد", en:"to help", pr:"asaa3ed — basaa3ed · betsaa3ed · hasaa3ed", root:"س ع د", ex:["انا بساعد · انت بتساعد · هساعد","I help · you help · I will help"]},
+  {ar:"اسافر", en:"to travel", pr:"asaafer — basaafer · betsaafer · hasaafer", root:"س ف ر", ex:["انا بسافر · انت بتسافر · هسافر","I travel · you travel · I will travel"]},
+  {ar:"ارجع", en:"to return", pr:"arga3 — barga3 · beterga3 · harga3", root:"ر ج ع", ex:["انا برجع · انت بترجع · هرجع","I return · you return · I will return"]},
+  {ar:"اجي (آجي)", en:"to come", pr:"aagi — baagi · beteegi · haagi", root:"ج ي ء", ex:["انا باجي · انت بتيجي · هاجي","I come · you come · I will come"]},
+  {ar:"اطلب", en:"to order / ask for", pr:"atlob — batlob · betotlob · hatlob", root:"ط ل ب", ex:["انا بطلب · انت بتطلب · هطلب","I order · you order · I will order"]},
+  {ar:"اوصل", en:"to arrive", pr:"awsal — bawsal · betewsal · hawsal", root:"و ص ل", ex:["انا بوصل · انت بتوصل · هوصل","I arrive · you arrive · I will arrive"]},
+  {ar:"اقعد", en:"to sit / stay", pr:"a'3od — ba'3od · beto'3od · ha'3od", root:"ق ع د", ex:["انا بقعد · انت بتقعد · هقعد","I sit · you sit · I will sit"]},
+  {ar:"انام", en:"to sleep", pr:"anaam — banaam · betnaam · hanaam", root:"ن و م", ex:["انا بنام · انت بتنام · هنام","I sleep · you sleep · I will sleep"]},
+  {ar:"امشي", en:"to walk / leave", pr:"amshi — bamshi · betemshi · hamshi", root:"م ش ي", ex:["انا بمشي · انت بتمشي · همشي","I walk · you walk · I will walk"]},
 ]},
 
 { id:"questions", name:"Question drills", cards:[
@@ -557,10 +569,10 @@ const DECKS = [
 ]},
 
 { id:"numbers", name:"Numbers, days, politeness", cards:[
-  {ar:"واحد، اتنين، تلاتة، اربعة، خمسة", en:"1, 2, 3, 4, 5", pr:"waahed · etnein · talaata · arba3a · khamsa"},
-  {ar:"ستة، سبعة، تمانية، تسعة، عشرة", en:"6, 7, 8, 9, 10", pr:"setta · sab3a · tamanya · tes3a · 3ashara"},
-  {ar:"حداشر، اتناشر، تلاتاشر، اربعتاشر، خمستاشر", en:"11, 12, 13, 14, 15", pr:"hedaashar · etnaashar · talataashar · arba3taashar · khamastaashar"},
-  {ar:"ستاشر، سبعتاشر، تمنتاشر، تسعتاشر، عشرين", en:"16, 17, 18, 19, 20", pr:"settaashar · saba3taashar · tamantaashar · tesa3taashar · 3eshreen"},
+  {ar:"واحد، اتنين، تلاتة، اربعة، خمسة", en:"١ = 1, ٢ = 2, ٣ = 3, ٤ = 4, ٥ = 5", pr:"waahed · etnein · talaata · arba3a · khamsa"},
+  {ar:"ستة، سبعة، تمانية، تسعة، عشرة", en:"٦ = 6, ٧ = 7, ٨ = 8, ٩ = 9, ١٠ = 10", pr:"setta · sab3a · tamanya · tes3a · 3ashara"},
+  {ar:"حداشر، اتناشر، تلاتاشر، اربعتاشر، خمستاشر", en:"١١ = 11, ١٢ = 12, ١٣ = 13, ١٤ = 14, ١٥ = 15", pr:"hedaashar · etnaashar · talataashar · arba3taashar · khamastaashar"},
+  {ar:"ستاشر، سبعتاشر، تمنتاشر، تسعتاشر، عشرين", en:"١٦ = 16, ١٧ = 17, ١٨ = 18, ١٩ = 19, ٢٠ = 20", pr:"settaashar · saba3taashar · tamantaashar · tesa3taashar · 3eshreen"},
   {ar:"السبت", en:"Saturday", pr:"es-sabt"},
   {ar:"الحد", en:"Sunday", pr:"el-hadd"},
   {ar:"الاتنين", en:"Monday", pr:"el-etnein"},
@@ -581,9 +593,40 @@ const DECKS = [
 
 // ============ STATE ============
 const LS_KEY = "arabicPracticeV1";
-let state = { deck: "greet", dir: "ar2en", theme: null, hard: {}, done: {} };
+const DAY = 86400000;
+// Leitner ladder: days until a card returns after reaching box 1..5.
+const SRS_DAYS = [1, 3, 7, 16, 35];
+let state = { deck: "greet", dir: "ar2en", theme: null, hard: {}, sched: {} };
 try { Object.assign(state, JSON.parse(localStorage.getItem(LS_KEY) || "{}")); } catch(e) {}
+if (!state.sched) state.sched = {};
+// migrate legacy binary "done" → treat as known once, due tomorrow
+if (state.done) {
+  for (const k in state.done) if (state.done[k] && !state.sched[k]) state.sched[k] = { box: 1, due: Date.now() + DAY };
+  delete state.done;
+}
 function save() { localStorage.setItem(LS_KEY, JSON.stringify(state)); }
+
+// ---- spaced repetition ----
+const isDue = key => { const s = state.sched[key]; return !s || s.due <= Date.now(); };
+const isReviewDue = key => { const s = state.sched[key]; return s && s.due <= Date.now(); };
+function scheduleGot(key) {
+  const box = Math.min(((state.sched[key] && state.sched[key].box) || 0) + 1, SRS_DAYS.length);
+  state.sched[key] = { box, due: Date.now() + SRS_DAYS[box - 1] * DAY };
+}
+function scheduleAgain(key) { state.sched[key] = { box: 0, due: Date.now() }; }
+function nextDueAmong(keys) {
+  let m = Infinity;
+  for (const k of keys) { const s = state.sched[k]; if (s && s.due > Date.now() && s.due < m) m = s.due; }
+  return m === Infinity ? null : m;
+}
+function relTime(ms) {
+  const d = ms - Date.now();
+  if (d <= 0) return "now";
+  if (d < 3600000) return "in " + Math.max(1, Math.round(d / 60000)) + " min";
+  if (d < DAY) return "in " + Math.round(d / 3600000) + " h";
+  const days = Math.round(d / DAY);
+  return days === 1 ? "tomorrow" : "in " + days + " days";
+}
 
 let order = [], idx = 0, flipped = false;
 
@@ -592,21 +635,44 @@ const cardKey = c => state.deck + "|" + c.ar;
 
 function currentDeck() { return DECKS.find(d => d.id === state.deck) || DECKS[0]; }
 
-function buildOrder(shuffle) {
-  let cards;
-  if (state.deck === "__hard") {
-    cards = [];
-    DECKS.forEach(d => d.cards.forEach(c => {
-      if (state.hard[d.id + "|" + c.ar]) cards.push({...c, _deck: d.name, _key: d.id + "|" + c.ar});
-    }));
-  } else {
-    const d = currentDeck();
-    cards = d.cards.map(c => ({...c, _deck: d.name, _key: d.id + "|" + c.ar}));
+// Words sharing a 3-letter root, indexed for the "same family" line on flip.
+const ROOT_INDEX = (() => {
+  const m = {};
+  for (const d of DECKS) for (const c of d.cards) {
+    if (c.root) (m[c.root] = m[c.root] || []).push({ ar: c.ar, en: c.en });
   }
-  // undone first, done after
-  const undone = cards.filter(c => !state.done[c._key]);
-  const done = cards.filter(c => state.done[c._key]);
-  order = [...undone, ...done];
+  return m;
+})();
+// First gloss only ("to see — I see" → "to see", "knowing (I know)" → "knowing")
+const shortGloss = en => en.split(/[—(/,]/)[0].trim();
+
+// Every card the current view could draw from, tagged with deck + stable key.
+function candidateCards() {
+  if (state.deck === "__hard") {
+    const out = [];
+    DECKS.forEach(d => d.cards.forEach(c => {
+      const k = d.id + "|" + c.ar;
+      if (state.hard[k]) out.push({...c, _deck: d.name, _key: k});
+    }));
+    return out;
+  }
+  if (state.deck === "__due") {
+    const out = [];
+    DECKS.forEach(d => d.cards.forEach(c => out.push({...c, _deck: d.name, _key: d.id + "|" + c.ar})));
+    return out;
+  }
+  const d = currentDeck();
+  return d.cards.map(c => ({...c, _deck: d.name, _key: d.id + "|" + c.ar}));
+}
+
+function buildOrder(shuffle) {
+  // __due shows only returning reviews; other views also surface brand-new cards.
+  const reviewsOnly = state.deck === "__due";
+  order = candidateCards().filter(c => reviewsOnly ? isReviewDue(c._key) : isDue(c._key));
+  // new cards (no schedule) first, then most-overdue first
+  order.sort((a, b) =>
+    ((state.sched[a._key] && state.sched[a._key].due) || 0) -
+    ((state.sched[b._key] && state.sched[b._key].due) || 0));
   if (shuffle) {
     for (let i = order.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -629,6 +695,14 @@ function render() {
     b.onclick = () => { state.deck = d.id; save(); buildOrder(false); render(); };
     bar.appendChild(b);
   });
+  let dueCount = 0;
+  DECKS.forEach(d => d.cards.forEach(c => { if (isReviewDue(d.id + "|" + c.ar)) dueCount++; }));
+  const db = document.createElement("button");
+  db.className = "deck-chip" + (state.deck === "__due" ? " active" : "");
+  db.textContent = "⏰ Due (" + dueCount + ")";
+  db.onclick = () => { state.deck = "__due"; save(); buildOrder(false); render(); };
+  bar.appendChild(db);
+
   const hardCount = Object.keys(state.hard).filter(k => state.hard[k]).length;
   const hb = document.createElement("button");
   hb.className = "deck-chip" + (state.deck === "__hard" ? " active" : "");
@@ -640,26 +714,31 @@ function render() {
 
   const card = order[idx];
   const body = $("cardBody");
-  const doneInDeck = order.filter(c => state.done[c._key]).length;
-
-  const banner = $("doneBanner");
-  if (order.length && doneInDeck === order.length) {
-    banner.style.display = "block";
-    banner.textContent = "🎉 Deck complete — every card marked \"got it\". Reset progress to run it again, or shuffle another deck.";
-  } else banner.style.display = "none";
+  $("doneBanner").style.display = "none";
 
   if (!card) {
     $("deckLabel").textContent = "";
     $("starBtn").style.display = "none";
     $("gradeRow").style.visibility = "hidden";
-    $("counter").textContent = "0 cards";
-    body.innerHTML = '<div class="front-text english">No cards here yet.<br><span style="font-size:0.95rem;font-weight:400;color:var(--muted)">Mark cards with the ★ to collect your hard words.</span></div>';
+    $("counter").textContent = "";
+    const sub = t => '<br><span style="font-size:0.95rem;font-weight:400;color:var(--muted)">' + t + '</span>';
+    let msg;
+    if (state.deck === "__hard") {
+      msg = "No hard cards yet." + sub("Tap the ★ on any card to collect your tricky words here.");
+    } else if (state.deck === "__due") {
+      msg = "🎉 Nothing due right now." + sub("Reviews come back on schedule — open a deck to learn new cards.");
+    } else {
+      const nxt = nextDueAmong(candidateCards().map(c => c._key));
+      msg = "🎉 All caught up in this deck." +
+        sub(nxt ? "Next card comes back " + relTime(nxt) + "." : "Star cards for the Hard set, or try another deck.");
+    }
+    body.innerHTML = '<div class="front-text english">' + msg + '</div>';
     return;
   }
 
   $("starBtn").style.display = "";
   $("deckLabel").textContent = card._deck;
-  $("counter").textContent = (idx + 1) + " / " + order.length + " · " + doneInDeck + " done";
+  $("counter").textContent = (idx + 1) + " / " + order.length + " due";
   $("starBtn").className = "star" + (state.hard[card._key] ? " on" : "");
 
   const frontAr = state.dir === "ar2en";
@@ -716,6 +795,15 @@ function render() {
           : '<div class="example"><div class="arabic">' + esc(card.ex[0]) + '</div><div>' + esc(card.ex[1]) + '</div></div>';
       }
     }
+    if (card.root) {
+      const fam = (ROOT_INDEX[card.root] || []).filter(w => w.ar !== card.ar);
+      let rl = '<div class="root-line"><span class="root-label">root</span> ' +
+        '<span class="root-letters arabic">' + esc(card.root) + '</span>';
+      if (fam.length) rl += ' <span class="root-also">— also ' + fam.slice(0, 3).map(w =>
+        '<span class="arabic">' + esc(w.ar) + '</span> <span class="root-gloss">(' +
+        esc(shortGloss(w.en)) + ')</span>').join(' · ') + '</span>';
+      html += rl + '</div>';
+    }
     if (card.t100) html += '<span class="top100-tag">top 100</span>';
   } else {
     html += '<div class="hint">tap to flip</div>';
@@ -730,16 +818,19 @@ function prev() { if (!order.length) return; idx = (idx - 1 + order.length) % or
 function grade(got) {
   const card = order[idx];
   if (!card) return;
-  if (got) { state.done[card._key] = 1; }
-  else {
-    delete state.done[card._key];
-    // re-queue a few cards later
-    const c = order.splice(idx, 1)[0];
-    const pos = Math.min(idx + 4, order.length);
-    order.splice(pos, 0, c);
-    idx = idx % order.length; flipped = false; save(); render(); return;
+  if (got) {
+    // correct → schedule further out and drop from today's queue
+    scheduleGot(card._key);
+    order.splice(idx, 1);
+    if (idx >= order.length) idx = 0;
+    flipped = false; save(); render(); return;
   }
-  save(); next();
+  // wrong → reset to box 0 and re-show it later this session
+  scheduleAgain(card._key);
+  const c = order.splice(idx, 1)[0];
+  const pos = Math.min(idx + 4, order.length);
+  order.splice(pos, 0, c);
+  idx = idx % Math.max(order.length, 1); flipped = false; save(); render();
 }
 
 $("card").onclick = e => { if (e.target.id !== "starBtn") flip(); };
@@ -754,7 +845,7 @@ $("againBtn").onclick = () => grade(false);
 $("gotBtn").onclick = () => grade(true);
 $("shuffleBtn").onclick = () => { buildOrder(true); render(); };
 $("resetBtn").onclick = () => {
-  order.forEach(c => delete state.done[c._key]);
+  candidateCards().forEach(c => delete state.sched[c._key]);
   save(); buildOrder(false); render();
 };
 $("dirBtn").onclick = () => { state.dir = state.dir === "ar2en" ? "en2ar" : "ar2en"; flipped = false; save(); render(); };
@@ -777,7 +868,7 @@ document.addEventListener("keydown", e => {
 });
 
 applyTheme();
-if (!DECKS.some(d => d.id === state.deck) && state.deck !== "__hard") state.deck = "greet";
+if (!DECKS.some(d => d.id === state.deck) && state.deck !== "__hard" && state.deck !== "__due") state.deck = "greet";
 buildOrder(false);
 render();
 </script>
