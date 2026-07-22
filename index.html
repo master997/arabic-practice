@@ -666,10 +666,12 @@ function candidateCards() {
 }
 
 function buildOrder(shuffle) {
-  // __due shows only returning reviews; other views also surface brand-new cards.
-  const reviewsOnly = state.deck === "__due";
-  order = candidateCards().filter(c => reviewsOnly ? isReviewDue(c._key) : isDue(c._key));
-  // new cards (no schedule) first, then most-overdue first
+  // ⏰ Due is the only schedule-gated view (returning reviews only). Every other
+  // deck stays fully browsable — you can always flip through all its cards.
+  order = state.deck === "__due"
+    ? candidateCards().filter(c => isReviewDue(c._key))
+    : candidateCards();
+  // new cards first, then overdue, then cards scheduled further out
   order.sort((a, b) =>
     ((state.sched[a._key] && state.sched[a._key].due) || 0) -
     ((state.sched[b._key] && state.sched[b._key].due) || 0));
@@ -738,7 +740,7 @@ function render() {
 
   $("starBtn").style.display = "";
   $("deckLabel").textContent = card._deck;
-  $("counter").textContent = (idx + 1) + " / " + order.length + " due";
+  $("counter").textContent = (idx + 1) + " / " + order.length + (state.deck === "__due" ? " due" : "");
   $("starBtn").className = "star" + (state.hard[card._key] ? " on" : "");
 
   const frontAr = state.dir === "ar2en";
@@ -818,19 +820,20 @@ function prev() { if (!order.length) return; idx = (idx - 1 + order.length) % or
 function grade(got) {
   const card = order[idx];
   if (!card) return;
-  if (got) {
-    // correct → schedule further out and drop from today's queue
-    scheduleGot(card._key);
-    order.splice(idx, 1);
-    if (idx >= order.length) idx = 0;
+  if (got) scheduleGot(card._key); else scheduleAgain(card._key);
+  // ⏰ Due drains as you clear it; other decks stay full and just advance.
+  if (state.deck === "__due") {
+    if (got) {
+      order.splice(idx, 1);
+      if (idx >= order.length) idx = 0;
+    } else {
+      const c = order.splice(idx, 1)[0];
+      order.splice(Math.min(idx + 4, order.length), 0, c);
+      idx = idx % Math.max(order.length, 1);
+    }
     flipped = false; save(); render(); return;
   }
-  // wrong → reset to box 0 and re-show it later this session
-  scheduleAgain(card._key);
-  const c = order.splice(idx, 1)[0];
-  const pos = Math.min(idx + 4, order.length);
-  order.splice(pos, 0, c);
-  idx = idx % Math.max(order.length, 1); flipped = false; save(); render();
+  save(); next();
 }
 
 $("card").onclick = e => { if (e.target.id !== "starBtn") flip(); };

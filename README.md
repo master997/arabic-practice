@@ -7,8 +7,8 @@ Everything you need before (and after) your first lesson.
 Open [index.html](index.html) in any browser — double-click it, or on your phone AirDrop the folder and open the file. No internet needed. Progress saves automatically per device.
 
 - Tap a card (or press Space) to flip · **1** = again · **2** = got it · arrow keys to move
-- **Spaced repetition is built in.** Mark **got it** and the card comes back on a widening schedule — **1 → 3 → 7 → 16 → 35 days**. Mark **again** and it resets to the start and returns later the same session. You only ever see what you're actually due to review.
-- **⏰ Due** is your daily driver: it gathers every card that's come back due across *all* decks. Open the app, clear Due, done. Opening a specific deck is how you pull in *new* cards to learn.
+- **Spaced repetition is built in.** Mark **got it** and the card comes back on a widening schedule — **1 → 3 → 7 → 16 → 35 days**. Mark **again** and it resets to the start. Every deck stays fully browsable — you can always flip through all its cards; only the **⏰ Due** queue is schedule-gated.
+- **⏰ Due** is your daily driver: it gathers every card that's come back due across *all* decks, and it drains as you clear it. Open the app, clear Due, done. Any other deck is free browsing — grading still updates the schedule underneath.
 - **★** on a card collects it into the "Hard" deck
 - Every card shows **Egyptian pronunciation** when flipped (say it first, then check). Street-style Latin, no harakat: `3` = ع, `'` = hamza or Egyptian ق, `g` = ج. Careful: Quranic reading habits give wrong Egyptian — كتير is *keteer* not *katheer*, قهوة is *'ahwa* not *qahwa*
 - The back of a card also shows its **root** and other words from the same family (e.g. ر و ح → رايح, اروح). Arabic is built from three-letter roots, so seeing the family turns lone words into clusters.
