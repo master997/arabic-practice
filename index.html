@@ -775,7 +775,7 @@ function candidateCards() {
     }));
     return out;
   }
-  if (state.deck === "__due") {
+  if (state.deck === "__due" || state.deck === "__all") {
     const out = [];
     DECKS.forEach(d => d.cards.forEach(c => out.push({...c, _deck: d.name, _key: d.id + "|" + c.ar})));
     return out;
@@ -828,6 +828,14 @@ function render() {
   db.textContent = "⏰ Due (" + dueCount + ")";
   db.onclick = () => { state.deck = "__due"; save(); buildOrder(false); render(); };
   bar.appendChild(db);
+
+  let allCount = 0;
+  DECKS.forEach(d => allCount += d.cards.length);
+  const ab = document.createElement("button");
+  ab.className = "deck-chip" + (state.deck === "__all" ? " active" : "");
+  ab.textContent = "🔁 Review all (" + allCount + ")";
+  ab.onclick = () => { state.deck = "__all"; save(); buildOrder(false); render(); };
+  bar.appendChild(ab);
 
   const hardCount = Object.keys(state.hard).filter(k => state.hard[k]).length;
   const hb = document.createElement("button");
@@ -1106,7 +1114,7 @@ document.addEventListener("keydown", e => {
 
 applyTheme();
 ensureToday();
-if (!DECKS.some(d => d.id === state.deck) && !["__hard", "__due", "__roots", "__today"].includes(state.deck)) state.deck = "__today";
+if (!DECKS.some(d => d.id === state.deck) && !["__hard", "__due", "__roots", "__today", "__all"].includes(state.deck)) state.deck = "__today";
 buildOrder(false);
 render();
 </script>
