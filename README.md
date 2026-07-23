@@ -6,6 +6,7 @@ Everything you need before (and after) your first lesson.
 
 Open [index.html](index.html) in any browser — double-click it, or on your phone AirDrop the folder and open the file. No internet needed. Progress saves automatically per device.
 
+- **▶ Today** is where you start every day. It's the first screen, and it tells you exactly what to do in three steps — clear your reviews, learn a few new cards from an auto-rotating focus deck, then say them out loud. No deciding, just open it and work down the list. It also keeps a **🔥 streak counter** and a GitHub-style grid of your daily completions, so showing up every day is visible and satisfying.
 - Tap a card (or press Space) to flip · **1** = again · **2** = got it · arrow keys to move
 - **Spaced repetition is built in.** Mark **got it** and the card comes back on a widening schedule — **10 min → 1 day → 3 → 7 → 16 → 35 days**. That first 10-minute step means cards you learn come back to you *within the same session*, then space out as they stick. Mark **again** and it resets to the start. Every deck stays fully browsable — you can always flip through all its cards; only the **⏰ Due** queue is schedule-gated.
 - **⏰ Due** is your daily driver: it gathers every card that's come back due across *all* decks, and it drains as you clear it. Open the app, clear Due, done. Any other deck is free browsing — grading still updates the schedule underneath.
@@ -16,6 +17,10 @@ Open [index.html](index.html) in any browser — double-click it, or on your pho
 - The **Numbers** deck shows the Arabic-Indic numeral glyphs (١ ٢ ٣ …) next to each number, so you learn to read the digits too.
 - **AR → EN** button flips the direction of every card — do both directions; EN → AR (production) is the one that makes you able to *speak*
 - Your original binder pages are in [sheets/](sheets/)
+
+## The daily loop (this is the main thing now)
+
+Open the app → **▶ Today** → do the three steps → done. The focus deck rotates on its own so over a couple of weeks you cycle through everything, then it loops. Your streak grows every day all three steps go green. That's the whole system — the plan below is only for the run-up to a first lesson.
 
 ## 7-day routine before the lesson (~20 min/day)
 

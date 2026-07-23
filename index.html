@@ -140,6 +140,43 @@
   .rm-ar { font-size: 1.3rem; color: var(--ink); min-width: 5.5rem; unicode-bidi: isolate; }
   .rm-pr { font-size: 0.9rem; font-style: italic; color: var(--muted); }
   .rm-gloss { font-size: 0.95rem; color: var(--muted); }
+  .today { width: 100%; text-align: left; }
+  .today-head { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .today-title { font-size: 1.3rem; font-weight: 750; margin: 4px 0 6px; letter-spacing: -0.01em; }
+  .today-done { margin: 10px 0 4px; padding: 14px 16px; background: var(--accent-soft); color: var(--accent); border-radius: 14px; font-weight: 700; text-align: center; }
+  .step { display: flex; gap: 14px; align-items: flex-start; padding: 18px 0; border-top: 1px dashed var(--border); }
+  .step-num {
+    flex: 0 0 30px; height: 30px; width: 30px; border-radius: 999px; background: var(--chip);
+    color: var(--ink); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem;
+  }
+  .step.done .step-num { background: var(--accent); color: #fff; }
+  .step-main { flex: 1; min-width: 0; }
+  .step-name { font-weight: 700; font-size: 1.05rem; margin-bottom: 4px; }
+  .step.done .step-name { color: var(--muted); }
+  .step-sub { font-size: 0.9rem; color: var(--muted); line-height: 1.55; }
+  .step-sub b { color: var(--ink); font-weight: 700; }
+  .step-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .step-btn {
+    background: var(--accent-soft); color: var(--accent); border: none; border-radius: 11px;
+    padding: 10px 15px; font-weight: 700; font-size: 0.85rem; cursor: pointer;
+  }
+  .step-btn.ghost { background: var(--chip); color: var(--ink); }
+  .step-btn:hover { filter: brightness(0.96); }
+  .streak-wrap { margin-top: 22px; padding-top: 18px; border-top: 1px dashed var(--border); }
+  .streak-top { display: flex; align-items: baseline; gap: 9px; margin-bottom: 13px; }
+  .streak-num { font-size: 1.55rem; font-weight: 800; color: var(--accent); line-height: 1; }
+  .streak-lbl { font-size: 0.92rem; color: var(--muted); font-weight: 650; }
+  .streak-best { margin-left: auto; font-size: 0.76rem; color: var(--muted); }
+  .heatmap-wrap { overflow-x: auto; padding-bottom: 2px; }
+  .heatmap { display: grid; grid-auto-flow: column; grid-auto-columns: 13px; grid-template-rows: repeat(7, 13px); gap: 3px; }
+  .hm-cell { border-radius: 3px; background: var(--accent); }
+  .hm-cell.l0 { background: var(--chip); }
+  .hm-cell.l1 { opacity: 0.4; }
+  .hm-cell.l2 { opacity: 0.68; }
+  .hm-cell.l3 { opacity: 1; }
+  .hm-cell.future { background: transparent; }
+  .heatmap-legend { display: flex; align-items: center; gap: 5px; justify-content: flex-end; margin-top: 8px; font-size: 0.7rem; color: var(--muted); }
+  .heatmap-legend .hm-cell { width: 11px; height: 11px; }
   .grade-row {
     width: 100%; max-width: 760px; display: flex; gap: 10px; margin-top: 14px;
   }
@@ -613,7 +650,8 @@ const DAY = 86400000, MIN = 60000;
 // Steps a card climbs on "got it", in MINUTES. The first is a same-day 10-min
 // step so reviews come back within the session; then the day-based ladder.
 const SRS_STEPS = [10, 1 * 1440, 3 * 1440, 7 * 1440, 16 * 1440, 35 * 1440];
-let state = { deck: "greet", dir: "ar2en", theme: null, hard: {}, sched: {} };
+const DAILY_NEW = 8;
+let state = { deck: "__today", dir: "ar2en", theme: null, hard: {}, sched: {}, today: null, history: {} };
 try { Object.assign(state, JSON.parse(localStorage.getItem(LS_KEY) || "{}")); } catch(e) {}
 if (!state.sched) state.sched = {};
 // migrate legacy binary "done" → treat as known once, due tomorrow
@@ -622,6 +660,69 @@ if (state.done) {
   delete state.done;
 }
 function save() { localStorage.setItem(LS_KEY, JSON.stringify(state)); }
+
+// ---- daily plan + streak ----
+const ymdOf = d => d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+const localDayStr = () => ymdOf(new Date());
+// Fresh per-day record; resets counters when the calendar day rolls over.
+function ensureToday() {
+  if (!state.today || state.today.date !== localDayStr())
+    state.today = { date: localDayStr(), newDone: 0, checks: {} };
+  if (!state.history) state.history = {};
+}
+// Focus deck auto-rotates one deck per day, looping through every deck.
+function todaysFocus() {
+  const n = Math.floor((Date.now() - new Date().getTimezoneOffset() * MIN) / DAY);
+  return DECKS[n % DECKS.length];
+}
+// Steps done today (0–3): reviews cleared, new-card quota met, said aloud.
+function computeDoneN() {
+  ensureToday();
+  let due = 0;
+  DECKS.forEach(d => d.cards.forEach(c => { if (isReviewDue(d.id + "|" + c.ar)) due++; }));
+  return (due === 0 ? 1 : 0) + (state.today.newDone >= DAILY_NEW ? 1 : 0) + (state.today.checks.speak ? 1 : 0);
+}
+// Stamp today's best progress into history for the streak grid (monotonic).
+function recordToday() {
+  ensureToday();
+  const n = computeDoneN();
+  if (n > (state.history[state.today.date] || 0)) state.history[state.today.date] = n;
+}
+function streakInfo() {
+  const set = new Set(Object.keys(state.history || {}).filter(k => state.history[k] >= 3));
+  let cur = 0;
+  const t = new Date(); t.setHours(0, 0, 0, 0);
+  if (!set.has(ymdOf(t))) t.setDate(t.getDate() - 1);
+  while (set.has(ymdOf(t))) { cur++; t.setDate(t.getDate() - 1); }
+  let best = 0;
+  for (const k of set) {
+    const [y, m, d] = k.split("-").map(Number);
+    const prev = new Date(y, m - 1, d); prev.setDate(prev.getDate() - 1);
+    if (set.has(ymdOf(prev))) continue; // not the start of a run
+    let len = 0, run = new Date(y, m - 1, d);
+    while (set.has(ymdOf(run))) { len++; run.setDate(run.getDate() + 1); }
+    if (len > best) best = len;
+  }
+  return { cur, best };
+}
+// 14-week GitHub-style grid, Sunday-aligned columns, shaded by steps done.
+function heatmapHtml() {
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const start = new Date(today); start.setDate(start.getDate() - (14 * 7 - 1));
+  start.setDate(start.getDate() - start.getDay());
+  const last = new Date(today); last.setDate(last.getDate() + (6 - last.getDay()));
+  let cells = "";
+  for (const cur = new Date(start); cur <= last; cur.setDate(cur.getDate() + 1)) {
+    if (cur > today) { cells += '<div class="hm-cell future"></div>'; continue; }
+    cells += '<div class="hm-cell l' + (state.history[ymdOf(cur)] || 0) + '"></div>';
+  }
+  return '<div class="heatmap-wrap"><div class="heatmap">' + cells + "</div></div>";
+}
+// Jump to a deck (optionally forcing a direction) from a Today button.
+function goDeck(id, dir) {
+  if (dir) state.dir = dir;
+  state.deck = id; flipped = false; save(); buildOrder(false); render();
+}
 
 // ---- spaced repetition ----
 const isDue = key => { const s = state.sched[key]; return !s || s.due <= Date.now(); };
@@ -665,7 +766,7 @@ const shortGloss = en => en.split(/[—(/,]/)[0].trim();
 
 // Every card the current view could draw from, tagged with deck + stable key.
 function candidateCards() {
-  if (state.deck === "__roots") return [];
+  if (state.deck === "__roots" || state.deck === "__today") return [];
   if (state.deck === "__hard") {
     const out = [];
     DECKS.forEach(d => d.cards.forEach(c => {
@@ -708,6 +809,11 @@ function render() {
   // deck bar
   const bar = $("deckBar");
   bar.innerHTML = "";
+  const tb = document.createElement("button");
+  tb.className = "deck-chip" + (state.deck === "__today" ? " active" : "");
+  tb.textContent = "▶ Today";
+  tb.onclick = () => { state.deck = "__today"; save(); buildOrder(false); render(); };
+  bar.appendChild(tb);
   DECKS.forEach(d => {
     const b = document.createElement("button");
     b.className = "deck-chip" + (state.deck === d.id ? " active" : "");
@@ -738,6 +844,7 @@ function render() {
 
   $("dirBtn").textContent = state.dir === "ar2en" ? "AR → EN" : "EN → AR";
 
+  if (state.deck === "__today") { renderToday(); return; }
   if (state.deck === "__roots") { renderRoots(); return; }
 
   const card = order[idx];
@@ -840,6 +947,76 @@ function render() {
   $("gradeRow").style.visibility = flipped ? "visible" : "hidden";
 }
 
+function renderToday() {
+  ensureToday();
+  $("deckLabel").textContent = "";
+  $("starBtn").style.display = "none";
+  $("gradeRow").style.visibility = "hidden";
+  $("doneBanner").style.display = "none";
+
+  let due = 0;
+  DECKS.forEach(d => d.cards.forEach(c => { if (isReviewDue(d.id + "|" + c.ar)) due++; }));
+  const hardCount = Object.keys(state.hard).filter(k => state.hard[k]).length;
+  const focus = todaysFocus();
+  const newDone = state.today.newDone;
+  const revDone = due === 0, newStepDone = newDone >= DAILY_NEW, speakDone = !!state.today.checks.speak;
+  const doneN = (revDone ? 1 : 0) + (newStepDone ? 1 : 0) + (speakDone ? 1 : 0);
+  recordToday();
+  const { cur, best } = streakInfo();
+
+  $("counter").textContent = doneN + " / 3 done today";
+
+  const step = (n, done, name, sub, actions) =>
+    '<div class="step' + (done ? " done" : "") + '">' +
+    '<div class="step-num">' + (done ? "✓" : n) + "</div>" +
+    '<div class="step-main"><div class="step-name">' + name + "</div>" +
+    '<div class="step-sub">' + sub + "</div>" +
+    (actions ? '<div class="step-actions">' + actions + "</div>" : "") +
+    "</div></div>";
+
+  const dateLine = new Date().toLocaleDateString(undefined, { weekday: "long", month: "short", day: "numeric" });
+  let html = '<div class="today"><div class="today-head">' + dateLine + "</div>" +
+    '<div class="today-title">Today’s practice</div>';
+  if (doneN === 3)
+    html += '<div class="today-done">🎉 All done — see you tomorrow</div>';
+
+  html += step(1, revDone, "Warm up — clear your reviews",
+    revDone ? "All caught up, nothing came back due." :
+      due + " card" + (due > 1 ? "s" : "") + " came back due. Clear these first.",
+    revDone ? "" : '<button class="step-btn" id="todoRevBtn">Start reviews ▶</button>');
+
+  html += step(2, newStepDone, "Learn " + DAILY_NEW + " new cards",
+    "Today’s focus: <b>" + esc(focus.name) + "</b> · " + newDone + "/" + DAILY_NEW +
+    " learned. Say each one out loud.",
+    '<button class="step-btn" id="todoNewBtn">Open ' + esc(focus.name) + " ▶</button>");
+
+  html += step(3, speakDone, "Say them out loud",
+    "Flip to <b>EN → AR</b> and produce today’s words from memory" +
+    (hardCount ? " — plus your " + hardCount + " ★ hard card" + (hardCount > 1 ? "s" : "") : "") + ".",
+    '<button class="step-btn" id="todoSpeakBtn">Speak mode ▶</button>' +
+    '<button class="step-btn ghost" id="todoSpeakChk">' + (speakDone ? "Undo ✓" : "Mark done") + "</button>");
+
+  html += '<div class="streak-wrap"><div class="streak-top">' +
+    '<span class="streak-num">🔥 ' + cur + "</span>" +
+    '<span class="streak-lbl">day' + (cur === 1 ? "" : "s") + " in a row</span>" +
+    '<span class="streak-best">best: ' + best + "</span></div>" +
+    heatmapHtml() +
+    '<div class="heatmap-legend">less' +
+    '<span class="hm-cell l0"></span><span class="hm-cell l1"></span>' +
+    '<span class="hm-cell l2"></span><span class="hm-cell l3"></span>more</div></div>';
+
+  html += "</div>";
+  $("cardBody").innerHTML = html;
+
+  const wire = (id, fn) => { const el = $(id); if (el) el.onclick = e => { e.stopPropagation(); fn(); }; };
+  wire("todoRevBtn", () => goDeck("__due"));
+  wire("todoNewBtn", () => goDeck(focus.id));
+  wire("todoSpeakBtn", () => goDeck(hardCount ? "__hard" : focus.id, "en2ar"));
+  wire("todoSpeakChk", () => { ensureToday(); state.today.checks.speak = !state.today.checks.speak; recordToday(); save(); render(); });
+
+  save();
+}
+
 function renderRoots() {
   $("deckLabel").textContent = "Roots";
   $("starBtn").style.display = "none";
@@ -874,7 +1051,10 @@ function prev() { if (!order.length) return; idx = (idx - 1 + order.length) % or
 function grade(got) {
   const card = order[idx];
   if (!card) return;
+  const wasNew = !state.sched[card._key];
   if (got) scheduleGot(card._key); else scheduleAgain(card._key);
+  if (wasNew) { ensureToday(); state.today.newDone++; }
+  recordToday();
   // ⏰ Due drains as you clear it; other decks stay full and just advance.
   if (state.deck === "__due") {
     if (got) {
@@ -925,7 +1105,8 @@ document.addEventListener("keydown", e => {
 });
 
 applyTheme();
-if (!DECKS.some(d => d.id === state.deck) && !["__hard", "__due", "__roots"].includes(state.deck)) state.deck = "greet";
+ensureToday();
+if (!DECKS.some(d => d.id === state.deck) && !["__hard", "__due", "__roots", "__today"].includes(state.deck)) state.deck = "__today";
 buildOrder(false);
 render();
 </script>
