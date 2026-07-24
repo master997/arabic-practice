@@ -1174,11 +1174,21 @@ function renderGuide() {
 
     '<div class="guide-title">Browse a topic <span class="guide-opt">(optional)</span></div>' +
     '<div class="browse-list">' + browse + '</div>' +
+
+    '<div class="guide-title">Start over</div>' +
+    '<div class="guide-plain">Wipes your streak and puts every card back to “new” on <b>this device</b>, ' +
+    'so you can begin the schedule fresh. Your words are <b>kept</b>.</div>' +
+    '<div class="add-actions"><button class="step-btn ghost" id="resetBtn">Reset my progress</button></div>' +
     '</div>';
 
   const wire = (id, fn) => { const el = $(id); if (el) el.onclick = e => { e.stopPropagation(); fn(); }; };
   document.querySelectorAll(".browse-link").forEach(b =>
     b.onclick = e => { e.stopPropagation(); goDeck(b.dataset.deck); });
+  wire("resetBtn", () => {
+    if (!confirm("Reset all review progress and your streak on this device? Your saved words are kept.")) return;
+    state.sched = {}; state.hard = {}; state.history = {}; state.today = null;
+    save(); location.reload();
+  });
   wire("addSaveBtn", () => {
     const raw = ($("addBox").value || "").split("\n").map(l => l.trim()).filter(Boolean);
     const existing = new Set();
