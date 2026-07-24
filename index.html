@@ -6,41 +6,27 @@
 <title>Egyptian Arabic Practice</title>
 <style>
   :root {
-    --bg: #f6f4ef;
-    --card: #ffffff;
-    --ink: #1a1a1a;
-    --muted: #6b6b6b;
-    --accent: #0d7a5f;
-    --accent-soft: #e0f0eb;
-    --danger: #b4462e;
-    --danger-soft: #f7e5df;
-    --chip: #ece9e1;
-    --chip-active: #1a1a1a;
-    --chip-active-ink: #ffffff;
-    --border: #e2ded4;
-    --shadow: 0 2px 12px rgba(0,0,0,0.07);
-  }
-  [data-theme="dark"] {
-    --bg: #14161a;
-    --card: #1f2229;
-    --ink: #eceae4;
-    --muted: #9a9890;
-    --accent: #4ecfa5;
-    --accent-soft: #1d3830;
-    --danger: #e0785c;
-    --danger-soft: #3a231b;
-    --chip: #2a2e37;
-    --chip-active: #eceae4;
-    --chip-active-ink: #14161a;
-    --border: #30343d;
-    --shadow: 0 2px 12px rgba(0,0,0,0.4);
+    /* One warm-dark theme: soft charcoal, warm off-white ink, a single muted amber accent. */
+    --bg: #1c1b18;
+    --card: #26241f;
+    --ink: #ece7db;
+    --muted: #a49c8b;
+    --accent: #cf9b4e;
+    --accent-soft: #342c1c;
+    --danger: #cf7a5a;
+    --danger-soft: #33241d;
+    --chip: #2f2c26;
+    --chip-active: #cf9b4e;
+    --chip-active-ink: #1c1b18;
+    --border: #38342c;
+    --shadow: none;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     background: var(--bg); color: var(--ink);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     min-height: 100vh; display: flex; flex-direction: column; align-items: center;
-    padding: 16px; transition: background 0.25s, color 0.25s;
+    padding: 16px;
   }
   .arabic { font-family: "Geeza Pro", "Noto Naskh Arabic", "Traditional Arabic", serif; direction: rtl; }
   header {
@@ -124,22 +110,40 @@
   .root-line .root-letters { font-size: 1.3rem; color: var(--accent); letter-spacing: 0.15em; }
   .root-line .root-also .arabic { color: var(--ink); }
   .root-line .root-gloss { font-size: 0.82rem; opacity: 0.8; }
-  .roots-view { width: 100%; text-align: left; }
-  .roots-section-label {
-    font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.06em; color: var(--muted); margin: 20px 0 8px;
+  .note {
+    margin-top: 14px; padding: 10px 14px; background: var(--chip); border-radius: 12px;
+    font-size: 0.9rem; color: var(--muted); line-height: 1.55; max-width: 90%;
+    margin-left: auto; margin-right: auto; text-align: left;
   }
-  .root-group { padding: 10px 0; border-top: 1px dashed var(--border); }
-  .root-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
-  .root-head .root-letters { font-size: 1.5rem; color: var(--accent); letter-spacing: 0.15em; }
-  .root-head .root-count {
-    font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em;
+  .note .note-label {
+    font-size: 0.64rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; opacity: 0.7; margin-right: 6px;
   }
-  .root-members { display: flex; flex-direction: column; gap: 5px; }
-  .rm { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-  .rm-ar { font-size: 1.3rem; color: var(--ink); min-width: 5.5rem; unicode-bidi: isolate; }
-  .rm-pr { font-size: 0.9rem; font-style: italic; color: var(--muted); }
-  .rm-gloss { font-size: 0.95rem; color: var(--muted); }
+  .chunk-tag {
+    display: inline-block; margin-top: 14px; font-size: 0.72rem; font-weight: 650;
+    color: var(--muted); background: var(--chip); padding: 4px 11px; border-radius: 999px;
+  }
+  .add-view { width: 100%; text-align: left; }
+  .add-flash { padding: 12px 15px; background: var(--accent-soft); color: var(--accent); border-radius: 12px; font-weight: 650; font-size: 0.9rem; margin-bottom: 16px; white-space: pre-wrap; }
+  .guide-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin: 26px 0 10px; }
+  .guide-title:first-child, .add-flash + .guide-title { margin-top: 4px; }
+  .guide-opt { color: var(--muted); font-weight: 600; text-transform: none; letter-spacing: 0; }
+  .guide-steps { margin: 0 0 12px 1.1rem; padding: 0; }
+  .guide-steps li { font-size: 1.05rem; line-height: 1.5; margin-bottom: 8px; }
+  .guide-plain { font-size: 0.98rem; line-height: 1.6; color: var(--muted); margin-bottom: 12px; }
+  .guide-plain b { color: var(--ink); }
+  .guide-plain code { font-family: ui-monospace, Menlo, monospace; font-size: 0.88rem; background: var(--chip); color: var(--accent); padding: 2px 6px; border-radius: 6px; direction: ltr; unicode-bidi: isolate; }
+  .browse-list { display: flex; flex-wrap: wrap; gap: 7px; }
+  .browse-link { background: var(--chip); border: none; color: var(--ink); border-radius: 8px; padding: 7px 12px; font-size: 0.85rem; cursor: pointer; font-weight: 600; }
+  .browse-link:hover { filter: brightness(1.15); }
+  .add-box {
+    width: 100%; min-height: 180px; border: 1px solid var(--border); border-radius: 14px;
+    background: var(--bg); color: var(--ink); padding: 14px; font-size: 1.05rem; line-height: 1.7;
+    font-family: inherit; resize: vertical; direction: rtl; text-align: right;
+  }
+  .add-box:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .add-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .add-note { margin-top: 16px; font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
   .today { width: 100%; text-align: left; }
   .today-head { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
   .today-title { font-size: 1.3rem; font-weight: 750; margin: 4px 0 6px; letter-spacing: -0.01em; }
@@ -210,10 +214,9 @@
 </head>
 <body>
 <header>
-  <h1>🇪🇬 Egyptian Arabic Practice</h1>
+  <h1>Egyptian Arabic</h1>
   <div class="controls">
     <button class="icon-btn" id="dirBtn" title="Switch question direction">AR → EN</button>
-    <button class="icon-btn" id="themeBtn" title="Toggle theme">◐</button>
   </div>
 </header>
 
@@ -225,7 +228,6 @@
   <span id="counter">–</span>
   <div class="right">
     <button class="icon-btn" id="shuffleBtn">Shuffle</button>
-    <button class="icon-btn" id="resetBtn">Reset deck progress</button>
   </div>
 </div>
 
@@ -247,11 +249,23 @@
   <button class="icon-btn" id="nextBtn">Skip →</button>
 </div>
 
-<p class="footer-note">Tap card or press Space to flip · 1 = again · 2 = got it · ← → to move<br>Pronunciation is Egyptian street-style: 3 = ع &nbsp;·&nbsp; ' = hamza or Egyptian ق &nbsp;·&nbsp; g = ج<br>Progress saves automatically on this device.</p>
+<p class="footer-note">Tap card or press Space to flip · 1 = again · 2 = got it · ← → to move<br>Pronunciation is Egyptian: 3 = ع &nbsp;·&nbsp; ' = hamza or Egyptian ق &nbsp;·&nbsp; g = ج<br>New here? Open <b>What to do</b>. Progress saves on this device.</p>
 
 <script>
 // ============ DATA ============
-// ar: Arabic script · en: English · pr: Egyptian pronunciation (3=ع, '=hamza/ق, g=ج) · ex: [arabicExample, englishExample] · t100: also in top-100
+// Card schema (only ar + en are required; everything else is optional and is
+// generated by Claude at enrichment time — see inbox.md / README):
+//   ar   Arabic script            (required)
+//   en   English gloss, clean      (required — usage asides go in `note`, not here)
+//   pr   Egyptian pronunciation    (3=ع, '=hamza/ق, g=ج)
+//   ex   [arabicExample, englishExample]
+//   root three spaced letters      e.g. "ر و ح"
+//   note usage note / disambiguation (kept out of en/pr so those stay clean)
+//   t100 flag: also in the top-100
+//   kind "word" | "phrase"         (auto-derived at load if absent)
+//   id/tags/deck/src/added are assigned automatically at load — do not hand-write.
+// Seed card ORDER within a deck is its stable identity — append new cards at the
+// end; never reorder or delete a card mid-deck or its review history shifts.
 const DECKS = [
 
 { id:"greet", name:"Greetings & intros", cards:[
@@ -372,7 +386,7 @@ const DECKS = [
   {ar:"انا دكتور", en:"I'm a doctor", pr:"ana doktoor"},
   {ar:"انا عايز اطلب قهوة", en:"I want to order coffee", pr:"ana 3aayez atlob 'ahwa"},
   {ar:"مدرسة", en:"school", pr:"madrasa"},
-  {ar:"نفسي", en:"myself / I wish (nefsi + verb)", pr:"nefsi"},
+  {ar:"نفسي", en:"myself / I wish", pr:"nefsi", note:"nefsi + verb = 'I wish to…'"},
   {ar:"حلم", en:"a dream", pr:"helm"},
 ]},
 
@@ -397,7 +411,7 @@ const DECKS = [
   {ar:"مش اوي", en:"not very / not much", pr:"mesh awi"},
   {ar:"مش متأكد", en:"not sure", pr:"mesh met'akked"},
   {ar:"وحش", en:"bad", pr:"wehesh"},
-  {ar:"ماشي", en:"OK / fine (also: walking, leaving)", pr:"maashi"},
+  {ar:"ماشي", en:"OK / fine", pr:"maashi", note:"literally 'walking' — also means going/leaving"},
   {ar:"اكل", en:"food", pr:"akl"},
   {ar:"باكل", en:"I'm eating", pr:"baakol"},
   {ar:"عصير", en:"juice", pr:"3aseer"},
@@ -407,14 +421,14 @@ const DECKS = [
   {ar:"فراخ و لحمة", en:"chicken and meat", pr:"feraakh we lahma"},
   {ar:"طعم", en:"taste", pr:"ta3m"},
   {ar:"بكام؟", en:"how much (does it cost)?", pr:"bekaam?"},
-  {ar:"قوي", en:"strong (in writing also = اوي, “very”: ده حلو قوي = that's very nice)", pr:"'awi — same sound for both meanings"},
+  {ar:"قوي", en:"strong", pr:"'awi", note:"same sound as اوي 'very' (ده حلو قوي = that's very nice) — context decides"},
   {ar:"لازم", en:"must / have to", pr:"laazem"},
   {ar:"براجع", en:"I'm reviewing", pr:"baraage3"},
   {ar:"اطلب", en:"to order", pr:"atlob"},
   {ar:"عشان", en:"because / in order to", pr:"3ashaan"},
 ]},
 
-{ id:"top100", name:"⭐ Top 100 words", cards:[
+{ id:"top100", name:"Top 100 words", cards:[
   // pronouns
   {ar:"انا", en:"I", t100:1, pr:"ana", ex:["انا من انجلترا","I'm from England"]},
   {ar:"انت", en:"you (m)", t100:1, pr:"enta", ex:["انت فين؟","Where are you?"]},
@@ -452,7 +466,7 @@ const DECKS = [
   {ar:"ايوه", en:"yes", t100:1, pr:"aywa"},
   {ar:"لا", en:"no", t100:1, pr:"la' (often la'a)"},
   {ar:"مش", en:"not", t100:1, pr:"mesh", ex:["انا مش فاهم","I don't understand"]},
-  {ar:"طيب", en:"okay / well then (also: kind)", t100:1, pr:"tayyeb"},
+  {ar:"طيب", en:"okay / well then", t100:1, pr:"tayyeb", note:"also an adjective: 'kind, good-hearted'"},
   {ar:"خلاص", en:"done / enough / alright", t100:1, pr:"khalaas", root:"خ ل ص"},
   {ar:"يعني", en:"meaning / I mean / kind of", t100:1, pr:"ya3ni"},
   {ar:"لسه", en:"still / not yet", t100:1, pr:"lessa"},
@@ -473,7 +487,7 @@ const DECKS = [
   {ar:"بعدين", en:"later", t100:1, pr:"ba3dein"},
   {ar:"يوم", en:"day", t100:1, pr:"yoom", root:"ي و م"},
   {ar:"ليلة", en:"night", t100:1, pr:"leila", root:"ل ي ل"},
-  {ar:"ساعة", en:"hour / clock / watch (also: a while)", t100:1, pr:"saa3a", root:"س و ع"},
+  {ar:"ساعة", en:"hour / clock / watch", t100:1, pr:"saa3a", root:"س و ع", note:"also 'a while' — استنى ساعة = wait a while"},
   {ar:"اسبوع", en:"week", t100:1, pr:"esboo3"},
   {ar:"سنة", en:"year", t100:1, pr:"sana", root:"س ن و"},
   {ar:"وقت", en:"time", t100:1, pr:"wa't", root:"و ق ت"},
@@ -507,7 +521,7 @@ const DECKS = [
   {ar:"شغل", en:"work", t100:1, pr:"shoghl", root:"ش غ ل"},
   {ar:"فلوس", en:"money", t100:1, pr:"feloos", root:"ف ل س"},
   {ar:"اكل", en:"food", t100:1, pr:"akl", root:"أ ك ل"},
-  {ar:"مية", en:"water (same spelling as مية = hundred; context decides)", t100:1, pr:"mayya (water) · meyya (hundred)"},
+  {ar:"مية", en:"water", t100:1, pr:"mayya", note:"same spelling as مية 'hundred' (meyya) — context decides"},
   {ar:"قهوة", en:"coffee", t100:1, pr:"'ahwa", root:"ق ه و"},
   {ar:"شاي", en:"tea", t100:1, pr:"shaay"},
   {ar:"صاحب", en:"friend (m)", t100:1, pr:"saaheb", root:"ص ح ب"},
@@ -516,7 +530,7 @@ const DECKS = [
   {ar:"سؤال", en:"question", t100:1, pr:"so'aal", root:"س ء ل"},
   {ar:"كلمة", en:"word", t100:1, pr:"kelma", root:"ك ل م"},
   {ar:"مشكلة", en:"problem", t100:1, pr:"moshkela", root:"ش ك ل"},
-  {ar:"الدنيا", en:"the world / life (also used for weather: الدنيا حر = it's hot)", t100:1, pr:"ed-donya", ex:["الدنيا عاملة ايه؟","How's life?"]},
+  {ar:"الدنيا", en:"the world / life", t100:1, pr:"ed-donya", note:"also used for weather: الدنيا حر = it's hot", ex:["الدنيا عاملة ايه؟","How's life?"]},
   // politeness core
   {ar:"شكرا", en:"thank you", t100:1, pr:"shokran", root:"ش ك ر"},
   {ar:"لو سمحت", en:"please / excuse me", t100:1, pr:"law samaht", root:"س م ح"},
@@ -635,31 +649,154 @@ const DECKS = [
   {ar:"الجمعة", en:"Friday", pr:"el-gom3a"},
   {ar:"لو سمحت", en:"please / excuse me", pr:"law samaht"},
   {ar:"شكرا", en:"thank you", pr:"shokran"},
-  {ar:"عفوا", en:"you're welcome (Egyptians more often say العفو)", pr:"3afwan · el-3afw"},
+  {ar:"عفوا", en:"you're welcome", pr:"3afwan", note:"Egyptians more often say العفو (el-3afw)"},
   {ar:"بعد اذنك", en:"excuse me / with your permission", pr:"ba3d eznak"},
   {ar:"معلش", en:"never mind / sorry / it's okay", pr:"ma3lesh"},
   {ar:"ان شاء الله", en:"God willing / hopefully", pr:"in shaa' allah"},
   {ar:"الحمد لله", en:"thank God (also = I'm fine)", pr:"el-hamdu lellah"},
   {ar:"يلا", en:"come on / let's go", pr:"yalla"},
 ]},
+
+// My words — Claude appends inbox-enriched cards here (see inbox.md / CLAUDE.md).
+// Keep it last. In-app "What to do" quick-adds merge into this same deck from localStorage.
+{ id:"mine", name:"My words", cards:[
+]},
 ];
 
 // ============ STATE ============
 const LS_KEY = "arabicPracticeV1";
 const DAY = 86400000, MIN = 60000;
-// Steps a card climbs on "got it", in MINUTES. The first is a same-day 10-min
-// step so reviews come back within the session; then the day-based ladder.
-const SRS_STEPS = [10, 1 * 1440, 3 * 1440, 7 * 1440, 16 * 1440, 35 * 1440];
 const DAILY_NEW = 8;
-let state = { deck: "__today", dir: "ar2en", theme: null, hard: {}, sched: {}, today: null, history: {} };
+let state = { deck: "__today", dir: "ar2en", theme: null, hard: {}, sched: {}, today: null, history: {}, userCards: [] };
 try { Object.assign(state, JSON.parse(localStorage.getItem(LS_KEY) || "{}")); } catch(e) {}
 if (!state.sched) state.sched = {};
+if (!Array.isArray(state.userCards)) state.userCards = [];
 // migrate legacy binary "done" → treat as known once, due tomorrow
 if (state.done) {
   for (const k in state.done) if (state.done[k] && !state.sched[k]) state.sched[k] = { box: 1, due: Date.now() + DAY };
   delete state.done;
 }
 function save() { localStorage.setItem(LS_KEY, JSON.stringify(state)); }
+
+// ============ SPACED REPETITION (FSRS) ============
+// Compact FSRS-5 with the published default weights (no per-user training). Each
+// card stores { s: stability(days), d: difficulty(1–10), due, reps, lapses, st,
+// last }. `st` is "lrn" (a same-session step, mirroring the old 10-min behaviour)
+// or "rev" (graduated, FSRS-scheduled). Grades: Again=1, Got it=3.
+const W = [0.40255, 1.18385, 3.173, 15.69105, 7.1949, 0.5345, 1.4604, 0.0046,
+  1.54575, 0.1192, 1.01925, 1.9395, 0.11, 0.29605, 2.2698, 0.2315, 2.9898, 0.51655, 0.6621];
+const DECAY = -0.5;
+const FACTOR = Math.pow(0.9, 1 / DECAY) - 1;
+const RETENTION = 0.9;
+const LEARN_STEP = 10 * MIN; // same-session return for new / lapsed cards
+const clampD = d => Math.min(10, Math.max(1, d));
+function initS(g) { return W[g - 1]; }
+function initD(g) { return clampD(W[4] - Math.exp(W[5] * (g - 1)) + 1); }
+const retrievability = (t, s) => Math.pow(1 + FACTOR * t / s, DECAY);
+function intervalDays(s) {
+  return Math.max(1, Math.round((s / FACTOR) * (Math.pow(RETENTION, 1 / DECAY) - 1)));
+}
+function nextD(d, g) {
+  const dd = d - W[6] * (g - 3) * (10 - d) / 9;      // linear damping
+  return clampD(W[7] * initD(4) + (1 - W[7]) * dd);   // mean reversion
+}
+function recallS(d, s, r, g) {
+  const hard = g === 2 ? W[15] : 1, easy = g === 4 ? W[16] : 1;
+  return s * (1 + Math.exp(W[8]) * (11 - d) * Math.pow(s, -W[9]) *
+    (Math.exp(W[10] * (1 - r)) - 1) * hard * easy);
+}
+function lapseS(d, s, r) {
+  return Math.min(s, W[11] * Math.pow(d, -W[12]) *
+    (Math.pow(s + 1, W[13]) - 1) * Math.exp(W[14] * (1 - r)));
+}
+// Advance a card's memory state by one grade and persist its next due time.
+function schedule(key, g) {
+  const now = Date.now();
+  let e = state.sched[key];
+  if (!e) {                                     // brand-new card, first exposure
+    e = { s: initS(g), d: initD(g), reps: 0, lapses: 0, st: "lrn", last: now };
+    e.due = g === 1 ? now + MIN : now + LEARN_STEP;
+  } else if (e.st === "lrn") {
+    if (g === 1) { e.due = now + MIN; }         // stay in the same-session step
+    else { e.st = "rev"; e.reps++; e.last = now; e.due = now + intervalDays(e.s) * DAY; }
+  } else {                                       // graduated review
+    const t = Math.max(0, (now - (e.last || now)) / DAY);
+    const r = retrievability(t, e.s);
+    e.d = nextD(e.d, g);
+    if (g === 1) { e.lapses++; e.s = lapseS(e.d, e.s, r); e.st = "lrn"; e.due = now + LEARN_STEP; }
+    else { e.s = recallS(e.d, e.s, r, g); e.due = now + intervalDays(e.s) * DAY; }
+    e.reps++; e.last = now;
+  }
+  state.sched[key] = e;
+}
+
+// ---- normalize: assign stable ids/kind/tags, merge user cards into DECKS ----
+// A card's identity is its `id` (not its Arabic text), so cleaning/re-tagging or
+// editing a card never orphans its review history. `kind`/`tags` are derived so
+// the seed data stays terse — Claude only has to write ar/en/pr/ex/root/note.
+const guessKind = ar => (ar.trim().split(/\s+/).length >= 3 ? "phrase" : "word");
+function normalizeCard(c, deck, i, src) {
+  if (!c.id) c.id = src === "seed" ? deck.id + "-" + i : (c.id || "u-" + i);
+  c.deck = deck.id;
+  c.src = c.src || src;
+  if (!c.kind) c.kind = guessKind(c.ar);
+  const tags = new Set(c.tags || []);
+  tags.add(deck.id);
+  if (c.t100) tags.add("top-100");
+  if (src === "seed") tags.add("seed");
+  // Only user-captured words are "stubs" awaiting Claude enrichment — seed cards
+  // legitimately lack examples/roots and must never be flagged.
+  else if (!c.pr || !c.ex || !c.root) tags.add("needs-enrichment");
+  c.tags = [...tags];
+  return c;
+}
+function normalize() {
+  DECKS.forEach(d => d.cards.forEach((c, i) => normalizeCard(c, d, i, "seed")));
+  // Merge in-app quick-adds (localStorage) into the My words deck. Once Claude
+  // has enriched a word into the file from the inbox, a seed card with that Arabic
+  // exists, so the localStorage stub is suppressed — and its review history is
+  // transferred to the enriched card so nothing is lost across the upgrade.
+  const mine = DECKS.find(d => d.id === "mine");
+  const arToId = {};
+  DECKS.forEach(d => d.cards.forEach(c => { if (!(c.ar.trim() in arToId)) arToId[c.ar.trim()] = c.id; }));
+  state.userCards.forEach((c, i) => {
+    const ar = c.ar.trim(), stubId = c.id || "u-" + i;
+    if (ar in arToId) {
+      const seedId = arToId[ar];
+      if (state.sched[stubId] && !state.sched[seedId]) state.sched[seedId] = state.sched[stubId];
+      if (state.hard[stubId] && !state.hard[seedId]) state.hard[seedId] = state.hard[stubId];
+      return;
+    }
+    arToId[ar] = stubId;
+    mine.cards.push(normalizeCard({ ...c, id: stubId }, mine, i, c.src || "tutor"));
+  });
+}
+normalize();
+
+// One-time: re-key ar-based schedule/hard entries onto stable card ids, and
+// convert the old Leitner {box,due} entries to FSRS memory states. Unmatched
+// keys are kept, never dropped.
+if (!state.keyed) {
+  const arToId = {};
+  DECKS.forEach(d => d.cards.forEach(c => { arToId[d.id + "|" + c.ar] = c.id; }));
+  const rekey = obj => {
+    const out = {};
+    for (const k in obj) out[arToId[k] || k] = obj[k];
+    return out;
+  };
+  state.sched = rekey(state.sched || {});
+  state.hard = rekey(state.hard || {});
+  const boxDays = [10 / 1440, 1, 3, 7, 16, 35];
+  for (const k in state.sched) {
+    const s = state.sched[k];
+    if (s && s.box !== undefined && s.s === undefined) {
+      if (s.box <= 1) state.sched[k] = { s: initS(3), d: initD(3), due: s.due, reps: s.box, lapses: 0, st: "lrn", last: Date.now() };
+      else state.sched[k] = { s: boxDays[Math.min(s.box, 6) - 1], d: 5, due: s.due, reps: s.box, lapses: 0, st: "rev", last: Date.now() };
+    }
+  }
+  state.keyed = true;
+  save();
+}
 
 // ---- daily plan + streak ----
 const ymdOf = d => d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
@@ -679,7 +816,7 @@ function todaysFocus() {
 function computeDoneN() {
   ensureToday();
   let due = 0;
-  DECKS.forEach(d => d.cards.forEach(c => { if (isReviewDue(d.id + "|" + c.ar)) due++; }));
+  DECKS.forEach(d => d.cards.forEach(c => { if (isReviewDue(c.id)) due++; }));
   return (due === 0 ? 1 : 0) + (state.today.newDone >= DAILY_NEW ? 1 : 0) + (state.today.checks.speak ? 1 : 0);
 }
 // Stamp today's best progress into history for the streak grid (monotonic).
@@ -724,14 +861,9 @@ function goDeck(id, dir) {
   state.deck = id; flipped = false; save(); buildOrder(false); render();
 }
 
-// ---- spaced repetition ----
+// ---- due-state helpers (scheduling itself lives in the FSRS engine above) ----
 const isDue = key => { const s = state.sched[key]; return !s || s.due <= Date.now(); };
 const isReviewDue = key => { const s = state.sched[key]; return s && s.due <= Date.now(); };
-function scheduleGot(key) {
-  const box = Math.min(((state.sched[key] && state.sched[key].box) || 0) + 1, SRS_STEPS.length);
-  state.sched[key] = { box, due: Date.now() + SRS_STEPS[box - 1] * MIN };
-}
-function scheduleAgain(key) { state.sched[key] = { box: 0, due: Date.now() }; }
 function nextDueAmong(keys) {
   let m = Infinity;
   for (const k of keys) { const s = state.sched[k]; if (s && s.due > Date.now() && s.due < m) m = s.due; }
@@ -749,7 +881,6 @@ function relTime(ms) {
 let order = [], idx = 0, flipped = false;
 
 const $ = id => document.getElementById(id);
-const cardKey = c => state.deck + "|" + c.ar;
 
 function currentDeck() { return DECKS.find(d => d.id === state.deck) || DECKS[0]; }
 
@@ -766,22 +897,21 @@ const shortGloss = en => en.split(/[—(/,]/)[0].trim();
 
 // Every card the current view could draw from, tagged with deck + stable key.
 function candidateCards() {
-  if (state.deck === "__roots" || state.deck === "__today") return [];
+  if (state.deck === "__today" || state.deck === "__guide") return [];
   if (state.deck === "__hard") {
     const out = [];
     DECKS.forEach(d => d.cards.forEach(c => {
-      const k = d.id + "|" + c.ar;
-      if (state.hard[k]) out.push({...c, _deck: d.name, _key: k});
+      if (state.hard[c.id]) out.push({...c, _deck: d.name, _key: c.id});
     }));
     return out;
   }
-  if (state.deck === "__due" || state.deck === "__all") {
+  if (state.deck === "__due") {
     const out = [];
-    DECKS.forEach(d => d.cards.forEach(c => out.push({...c, _deck: d.name, _key: d.id + "|" + c.ar})));
+    DECKS.forEach(d => d.cards.forEach(c => out.push({...c, _deck: d.name, _key: c.id})));
     return out;
   }
   const d = currentDeck();
-  return d.cards.map(c => ({...c, _deck: d.name, _key: d.id + "|" + c.ar}));
+  return d.cards.map(c => ({...c, _deck: d.name, _key: c.id}));
 }
 
 function buildOrder(shuffle) {
@@ -806,54 +936,29 @@ function buildOrder(shuffle) {
 function esc(s) { return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
 
 function render() {
-  // deck bar
+  // Minimal top bar — four calm buttons. Topic decks stay reachable through Today
+  // (the daily focus rotates through them) and the "What to do" tab's browse list.
   const bar = $("deckBar");
   bar.innerHTML = "";
-  const tb = document.createElement("button");
-  tb.className = "deck-chip" + (state.deck === "__today" ? " active" : "");
-  tb.textContent = "▶ Today";
-  tb.onclick = () => { state.deck = "__today"; save(); buildOrder(false); render(); };
-  bar.appendChild(tb);
-  DECKS.forEach(d => {
-    const b = document.createElement("button");
-    b.className = "deck-chip" + (state.deck === d.id ? " active" : "");
-    b.textContent = d.name;
-    b.onclick = () => { state.deck = d.id; save(); buildOrder(false); render(); };
-    bar.appendChild(b);
-  });
   let dueCount = 0;
-  DECKS.forEach(d => d.cards.forEach(c => { if (isReviewDue(d.id + "|" + c.ar)) dueCount++; }));
-  const db = document.createElement("button");
-  db.className = "deck-chip" + (state.deck === "__due" ? " active" : "");
-  db.textContent = "⏰ Due (" + dueCount + ")";
-  db.onclick = () => { state.deck = "__due"; save(); buildOrder(false); render(); };
-  bar.appendChild(db);
-
-  let allCount = 0;
-  DECKS.forEach(d => allCount += d.cards.length);
-  const ab = document.createElement("button");
-  ab.className = "deck-chip" + (state.deck === "__all" ? " active" : "");
-  ab.textContent = "🔁 Review all (" + allCount + ")";
-  ab.onclick = () => { state.deck = "__all"; save(); buildOrder(false); render(); };
-  bar.appendChild(ab);
-
+  DECKS.forEach(d => d.cards.forEach(c => { if (isReviewDue(c.id)) dueCount++; }));
   const hardCount = Object.keys(state.hard).filter(k => state.hard[k]).length;
-  const hb = document.createElement("button");
-  hb.className = "deck-chip" + (state.deck === "__hard" ? " active" : "");
-  hb.textContent = "★ Hard (" + hardCount + ")";
-  hb.onclick = () => { state.deck = "__hard"; save(); buildOrder(false); render(); };
-  bar.appendChild(hb);
-
-  const rb = document.createElement("button");
-  rb.className = "deck-chip" + (state.deck === "__roots" ? " active" : "");
-  rb.textContent = "🌱 Roots";
-  rb.onclick = () => { state.deck = "__roots"; save(); buildOrder(false); render(); };
-  bar.appendChild(rb);
+  const chip = (id, label, go) => {
+    const b = document.createElement("button");
+    b.className = "deck-chip" + (state.deck === id ? " active" : "");
+    b.textContent = label;
+    b.onclick = go;
+    bar.appendChild(b);
+  };
+  chip("__today", "Today", () => { state.deck = "__today"; save(); buildOrder(false); render(); });
+  chip("__due", "Reviews (" + dueCount + ")", () => { state.deck = "__due"; save(); buildOrder(false); render(); });
+  chip("__hard", "Hard (" + hardCount + ")", () => { state.deck = "__hard"; save(); buildOrder(false); render(); });
+  chip("__guide", "What to do", () => { state.deck = "__guide"; save(); render(); });
 
   $("dirBtn").textContent = state.dir === "ar2en" ? "AR → EN" : "EN → AR";
 
   if (state.deck === "__today") { renderToday(); return; }
-  if (state.deck === "__roots") { renderRoots(); return; }
+  if (state.deck === "__guide") { renderGuide(); return; }
 
   const card = order[idx];
   const body = $("cardBody");
@@ -869,10 +974,10 @@ function render() {
     if (state.deck === "__hard") {
       msg = "No hard cards yet." + sub("Tap the ★ on any card to collect your tricky words here.");
     } else if (state.deck === "__due") {
-      msg = "🎉 Nothing due right now." + sub("Reviews come back on schedule — open a deck to learn new cards.");
+      msg = "Nothing due right now." + sub("Reviews come back on schedule — open Today to learn new cards.");
     } else {
       const nxt = nextDueAmong(candidateCards().map(c => c._key));
-      msg = "🎉 All caught up in this deck." +
+      msg = "All caught up in this deck." +
         sub(nxt ? "Next card comes back " + relTime(nxt) + "." : "Star cards for the Hard set, or try another deck.");
     }
     body.innerHTML = '<div class="front-text english">' + msg + '</div>';
@@ -947,8 +1052,12 @@ function render() {
         esc(shortGloss(w.en)) + ')</span>').join(' · ') + '</span>';
       html += rl + '</div>';
     }
+    if (card.note) html += '<div class="note"><span class="note-label">note</span> ' + esc(card.note) + '</div>';
+    if ((card.tags || []).includes("needs-enrichment"))
+      html += '<div class="hint">Quick-saved — give it to Claude to add pronunciation, root & an example</div>';
     if (card.t100) html += '<span class="top100-tag">top 100</span>';
   } else {
+    if (card.kind === "phrase") html += '<div class="chunk-tag">phrase — learn it as one chunk</div>';
     html += '<div class="hint">tap to flip</div>';
   }
   body.innerHTML = html;
@@ -963,7 +1072,7 @@ function renderToday() {
   $("doneBanner").style.display = "none";
 
   let due = 0;
-  DECKS.forEach(d => d.cards.forEach(c => { if (isReviewDue(d.id + "|" + c.ar)) due++; }));
+  DECKS.forEach(d => d.cards.forEach(c => { if (isReviewDue(c.id)) due++; }));
   const hardCount = Object.keys(state.hard).filter(k => state.hard[k]).length;
   const focus = todaysFocus();
   const newDone = state.today.newDone;
@@ -986,26 +1095,26 @@ function renderToday() {
   let html = '<div class="today"><div class="today-head">' + dateLine + "</div>" +
     '<div class="today-title">Today’s practice</div>';
   if (doneN === 3)
-    html += '<div class="today-done">🎉 All done — see you tomorrow</div>';
+    html += '<div class="today-done">All done — see you tomorrow</div>';
 
-  html += step(1, revDone, "Warm up — clear your reviews",
+  html += step(1, revDone, "Clear your reviews",
     revDone ? "All caught up, nothing came back due." :
       due + " card" + (due > 1 ? "s" : "") + " came back due. Clear these first.",
-    revDone ? "" : '<button class="step-btn" id="todoRevBtn">Start reviews ▶</button>');
+    revDone ? "" : '<button class="step-btn" id="todoRevBtn">Start reviews</button>');
 
   html += step(2, newStepDone, "Learn " + DAILY_NEW + " new cards",
     "Today’s focus: <b>" + esc(focus.name) + "</b> · " + newDone + "/" + DAILY_NEW +
     " learned. Say each one out loud.",
-    '<button class="step-btn" id="todoNewBtn">Open ' + esc(focus.name) + " ▶</button>");
+    '<button class="step-btn" id="todoNewBtn">Open ' + esc(focus.name) + "</button>");
 
   html += step(3, speakDone, "Say them out loud",
     "Flip to <b>EN → AR</b> and produce today’s words from memory" +
-    (hardCount ? " — plus your " + hardCount + " ★ hard card" + (hardCount > 1 ? "s" : "") : "") + ".",
-    '<button class="step-btn" id="todoSpeakBtn">Speak mode ▶</button>' +
-    '<button class="step-btn ghost" id="todoSpeakChk">' + (speakDone ? "Undo ✓" : "Mark done") + "</button>");
+    (hardCount ? " — plus your " + hardCount + " hard card" + (hardCount > 1 ? "s" : "") : "") + ".",
+    '<button class="step-btn" id="todoSpeakBtn">Speak mode</button>' +
+    '<button class="step-btn ghost" id="todoSpeakChk">' + (speakDone ? "Undo" : "Mark done") + "</button>");
 
   html += '<div class="streak-wrap"><div class="streak-top">' +
-    '<span class="streak-num">🔥 ' + cur + "</span>" +
+    '<span class="streak-num">' + cur + "</span>" +
     '<span class="streak-lbl">day' + (cur === 1 ? "" : "s") + " in a row</span>" +
     '<span class="streak-best">best: ' + best + "</span></div>" +
     heatmapHtml() +
@@ -1025,32 +1134,81 @@ function renderToday() {
   save();
 }
 
-function renderRoots() {
-  $("deckLabel").textContent = "Roots";
+function renderGuide() {
+  $("deckLabel").textContent = "";
   $("starBtn").style.display = "none";
   $("gradeRow").style.visibility = "hidden";
-  const entries = Object.entries(ROOT_INDEX);
-  const families = entries.filter(([, v]) => v.length > 1).sort((a, b) => b[1].length - a[1].length);
-  const singles = entries.filter(([, v]) => v.length === 1).sort((a, b) => a[0].localeCompare(b[0]));
-  const words = entries.reduce((n, [, v]) => n + v.length, 0);
-  $("counter").textContent = families.length + " families · " + words + " words";
-  const shortPr = pr => pr ? esc(pr.split(/[—·]/)[0].trim()) : "";
-  const member = w =>
-    '<div class="rm"><span class="arabic rm-ar">' + esc(w.ar) + '</span>' +
-    (w.pr ? '<span class="rm-pr">' + shortPr(w.pr) + '</span>' : '') +
-    '<span class="rm-gloss">' + esc(shortGloss(w.en)) + '</span></div>';
-  const group = ([root, ws]) =>
-    '<div class="root-group"><div class="root-head">' +
-    '<span class="root-letters arabic">' + esc(root) + '</span>' +
-    '<span class="root-count">' + ws.length + (ws.length > 1 ? " words" : " word") + '</span></div>' +
-    '<div class="root-members">' + ws.map(member).join("") + '</div></div>';
+  $("doneBanner").style.display = "none";
+  const stubs = state.userCards.filter(c => !c.pr || !c.ex || !c.root).length;
+  $("counter").textContent = state.userCards.length + " of your words" +
+    (stubs ? " · " + stubs + " not finished yet" : "");
+  const flash = state.flash;
+  state.flash = null;
+  // Only the real topic decks — skip the empty "My words" holder in the browse list.
+  const browse = DECKS.filter(d => d.id !== "mine" && d.cards.length)
+    .map(d => '<button class="browse-link" data-deck="' + d.id + '">' + esc(d.name) + '</button>').join("");
   $("cardBody").innerHTML =
-    '<div class="roots-view">' +
-    '<div class="roots-section-label">Word families — same three letters, different jobs</div>' +
-    families.map(group).join("") +
-    '<div class="roots-section-label">Single words so far — families grow as we add vocab</div>' +
-    singles.map(group).join("") +
+    '<div class="add-view">' +
+    (flash ? '<div class="add-flash">' + esc(flash) + '</div>' : '') +
+    '<div class="guide-title">Every day</div>' +
+    '<ol class="guide-steps">' +
+    '<li>Open <b>Today</b>.</li>' +
+    '<li>Clear the <b>Reviews</b> it shows you (old words coming back).</li>' +
+    '<li>Learn the few new cards — <b>say each one out loud</b>.</li>' +
+    '</ol>' +
+    '<div class="guide-plain">That’s the whole routine. Do it once a day and your streak grows. ' +
+    'You don’t need to pick decks — Today rotates through them for you.</div>' +
+
+    '<div class="guide-title">Your new words each week</div>' +
+    '<div class="guide-plain"><b>Best way:</b> give this week’s words to Claude (paste them in chat, or into the ' +
+    '<b>inbox.md</b> file) and Claude writes them out fully — pronunciation, root, an example. ' +
+    'That’s where words become proper cards.</div>' +
+    '<div class="guide-plain">The box below is a <b>quick save</b> for when Claude isn’t around — type ' +
+    '<code>arabic | english</code>, one per line. They save straight away so you can study them, and Claude ' +
+    'finishes them off next time.</div>' +
+    '<textarea class="add-box" id="addBox" placeholder="عايز | I want&#10;بكام؟ | how much is it?&#10;لسه بدري | it’s still early"></textarea>' +
+    '<div class="add-actions">' +
+    '<button class="step-btn" id="addSaveBtn">Save these words</button>' +
+    '<button class="step-btn ghost" id="addExportBtn">Copy my words (backup)</button>' +
+    '</div>' +
+
+    '<div class="guide-title">Browse a topic <span class="guide-opt">(optional)</span></div>' +
+    '<div class="browse-list">' + browse + '</div>' +
     '</div>';
+
+  const wire = (id, fn) => { const el = $(id); if (el) el.onclick = e => { e.stopPropagation(); fn(); }; };
+  document.querySelectorAll(".browse-link").forEach(b =>
+    b.onclick = e => { e.stopPropagation(); goDeck(b.dataset.deck); });
+  wire("addSaveBtn", () => {
+    const raw = ($("addBox").value || "").split("\n").map(l => l.trim()).filter(Boolean);
+    const existing = new Set();
+    DECKS.forEach(d => d.cards.forEach(c => existing.add(c.ar.trim())));
+    let added = 0, skipped = 0;
+    const today = localDayStr();
+    for (const line of raw) {
+      const p = line.split("|").map(s => s.trim());
+      const ar = p[0], en = p[1];
+      if (!ar || !en) { skipped++; continue; }
+      if (existing.has(ar)) { skipped++; continue; }
+      existing.add(ar);
+      const card = { ar, en, src: "tutor", added: today, tags: ["tutor"] };
+      if (p[2]) card.pr = p[2];
+      if (p[3] && p[4]) card.ex = [p[3], p[4]];
+      state.userCards.push(card);
+      added++;
+    }
+    if (!added && !skipped) { state.flash = "Nothing to add — paste some lines first."; save(); render(); return; }
+    state.flash = "Added " + added + (skipped ? " · skipped " + skipped + " (blank or duplicate)" : "") +
+      (added ? ". Enrich them next by pasting into inbox.md." : ".");
+    save();
+    if (added) location.reload(); else render();  // reload re-normalizes new cards into the deck
+  });
+  wire("addExportBtn", () => {
+    const json = JSON.stringify(state.userCards, null, 2);
+    navigator.clipboard.writeText(json).then(
+      () => { state.flash = "Copied " + state.userCards.length + " words to clipboard as JSON."; render(); },
+      () => { state.flash = "Copy failed — here is your JSON:\n" + json; render(); });
+  });
 }
 
 function flip() { flipped = !flipped; render(); }
@@ -1060,7 +1218,7 @@ function grade(got) {
   const card = order[idx];
   if (!card) return;
   const wasNew = !state.sched[card._key];
-  if (got) scheduleGot(card._key); else scheduleAgain(card._key);
+  schedule(card._key, got ? 3 : 1);
   if (wasNew) { ensureToday(); state.today.newDone++; }
   recordToday();
   // ⏰ Due drains as you clear it; other decks stay full and just advance.
@@ -1078,7 +1236,9 @@ function grade(got) {
   save(); next();
 }
 
-$("card").onclick = e => { if (e.target.id !== "starBtn") flip(); };
+// Views without a flippable card (Today, What-to-do) must not flip on tap.
+const NONCARD = ["__today", "__guide"];
+$("card").onclick = e => { if (e.target.id !== "starBtn" && !NONCARD.includes(state.deck)) flip(); };
 $("starBtn").onclick = () => {
   const card = order[idx]; if (!card) return;
   if (state.hard[card._key]) delete state.hard[card._key]; else state.hard[card._key] = 1;
@@ -1089,22 +1249,11 @@ $("prevBtn").onclick = prev;
 $("againBtn").onclick = () => grade(false);
 $("gotBtn").onclick = () => grade(true);
 $("shuffleBtn").onclick = () => { buildOrder(true); render(); };
-$("resetBtn").onclick = () => {
-  candidateCards().forEach(c => delete state.sched[c._key]);
-  save(); buildOrder(false); render();
-};
 $("dirBtn").onclick = () => { state.dir = state.dir === "ar2en" ? "en2ar" : "ar2en"; flipped = false; save(); render(); };
 
-function applyTheme() {
-  const t = state.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-  document.documentElement.setAttribute("data-theme", t);
-}
-$("themeBtn").onclick = () => {
-  const cur = document.documentElement.getAttribute("data-theme");
-  state.theme = cur === "dark" ? "light" : "dark"; save(); applyTheme();
-};
-
 document.addEventListener("keydown", e => {
+  const typing = /^(TEXTAREA|INPUT)$/.test(document.activeElement && document.activeElement.tagName);
+  if (typing || NONCARD.includes(state.deck)) return;  // don't hijack keys while typing / on non-card views
   if (e.code === "Space") { e.preventDefault(); flip(); }
   else if (e.key === "1" && flipped) grade(false);
   else if (e.key === "2" && flipped) grade(true);
@@ -1112,9 +1261,8 @@ document.addEventListener("keydown", e => {
   else if (e.key === "ArrowLeft") prev();
 });
 
-applyTheme();
 ensureToday();
-if (!DECKS.some(d => d.id === state.deck) && !["__hard", "__due", "__roots", "__today", "__all"].includes(state.deck)) state.deck = "__today";
+if (!DECKS.some(d => d.id === state.deck) && !["__hard", "__due", "__today", "__guide"].includes(state.deck)) state.deck = "__today";
 buildOrder(false);
 render();
 </script>
